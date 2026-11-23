@@ -1,0 +1,44 @@
+{
+  "Format": 1,
+  "Dictionaries": [
+    {
+      "Id": "example-site",
+      "Name": "Пример площадки",
+      "Rules": [
+        {
+          "Id": "wan",
+          "Name": "Доступ в интернет",
+          "Role": "WAN",
+          "Severity": 3,
+          "Interfaces": [
+            "ether1"
+          ],
+          "DelaySeconds": 30,
+          "RecoveryChecks": 2
+        },
+        {
+          "Id": "server-tunnel",
+          "Name": "Туннель до серверов",
+          "Role": "Tunnel",
+          "Severity": 3,
+          "Interfaces": [
+            "tunnel-to-servers"
+          ],
+          "DelaySeconds": 30,
+          "RecoveryChecks": 2
+        },
+        {
+          "Id": "user-vpn",
+          "Name": "VPN пользователей",
+          "Role": "UserVpn",
+          "Severity": 1,
+          "Comments": [
+            "User VPN"
+          ],
+          "DelaySeconds": 30,
+          "RecoveryChecks": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using SysAdminAssistant.Core;
+namespace SysAdminAssistant.Infrastructure;
+public sealed class ClientServerTrust
+{
+ public string AuthorityCertificate {get;set;}="";public AgentSignedTrust Trust {get;set;}=new("","");public string InitialPin {get;set;}="";public string ObservedPin {get;set;}="";
+ private static string PathFor(string url)=>Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"SysAdminAssistantClient","Trust",Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(url)))+".json");
+ public static ClientServerTrust? Load(string url,string pin){var path=PathFor(url);if(!File.Exists(path))return null;if(new FileInfo(path).Length>50000)throw new InvalidDataException();var v=JsonSerializer.Deserialize<ClientServerTrust>(File.ReadAllText(path),AgentWire.Json)??throw new InvalidDataException();var doc=AgentTrust.Verify(v.Trust,v.AuthorityCertificate);return pin==""||pin.Equals(v.InitialPin,StringComparison.OrdinalIgnoreCase)||pin.Equals(v.ObservedPin,StringComparison.OrdinalIgnoreCase)||doc.Pins.Contains(pin,StringComparer.OrdinalIgnoreCase)?v:null;}
+ public static ClientServerTrust Learn(ServerTrustInfo info,string url,string initial,string observed,ClientServerTrust? previous){if(info.ServerUrl!=url||info.AuthorityCertificate.Length>30000)throw new CryptographicException(global::SysAdminAssistant.Core.ProductText.Get("Доверие другого сервера"));if(previous!=null&&!ServerTrust.SameAuthority(previous.AuthorityCertificate,info.AuthorityCertificate))throw new CryptographicException(global::SysAdminAssistant.Core.ProductText.Get("Ключ доверия сервера неожиданно заменён"));var minimum=previous==null?0:AgentTrust.Verify(previous.Trust,previous.AuthorityCertificate).Version;var doc=AgentTrust.Verify(info.Trust,info.AuthorityCertificate,minimum);if(!doc.Pins.Contains(info.Fingerprint,StringComparer.OrdinalIgnoreCase)||!doc.Pins.Contains(observed,StringComparer.OrdinalIgnoreCase)||previous!=null&&doc.Version==minimum&&previous.Trust.Payload!=info.Trust.Payload)throw new CryptographicException(global::SysAdminAssistant.Core.ProductText.Get("Конфликт версии доверия сервера"));return new(){AuthorityCertificate=info.AuthorityCertificate,Trust=info.Trust,InitialPin=previous?.InitialPin??initial,ObservedPin=observed};}
+ public void Save(string url){var path=PathFor(url);Directory.CreateDirectory(Path.GetDirectoryName(path)!);var temp=path+"."+Guid.NewGuid().ToString("N")+".tmp";try{File.WriteAllText(temp,JsonSerializer.Serialize(this,AgentWire.Json));File.Move(temp,path,true);}finally{if(File.Exists(temp))File.Delete(temp);}}
+}

@@ -1,0 +1,684 @@
+[
+  {
+    "Id": "veeam.config.encryption",
+    "Providers": [
+      "Veeam"
+    ],
+    "Title": "Конфигурация сохранена не полностью: отключено шифрование",
+    "Patterns": [
+      "configuration backup encryption is disabled",
+      "skipping (?:server certificate|credentials) backup because encryption is disabled"
+    ],
+    "Meaning": "Veeam сообщает об отключённом шифровании копии своей конфигурации. Это относится к настройкам сервера резервного копирования.",
+    "Impact": "Без шифрования не сохраняются учётные данные, ключи и сертификаты; для appliance возможен пропуск конфигурации. Восстановление потребует дополнительных действий.",
+    "Steps": [
+      "Открой Configuration Backup в меню Veeam и включи Encrypt configuration backup.",
+      "Сохрани пароль в защищённом месте отдельно от этой копии.",
+      "Создай новую копию конфигурации и проверь результат задания. Статус бэкапов ВМ оценивай отдельно."
+    ],
+    "Source": "https://helpcenter.veeam.com/docs/vbr/userguide/config_backup_encrypted.html",
+    "Scope": "Veeam Backup & Replication; состав копии и итоговый статус зависят от версии.",
+    "Confidence": "Причина указана в сообщении",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "veeam.copy.blocksize",
+    "Providers": [
+      "Veeam"
+    ],
+    "Title": "Размер блоков исходной копии не подходит для Backup Copy",
+    "Patterns": [
+      "(?:source backup file|backup file) (?:has|with) different block size",
+      "restore point is located in backup file with different block size"
+    ],
+    "Meaning": "Backup Copy встретил цепочку с несовместимым размером блоков.",
+    "Impact": "Новые точки из этой цепочки могут не копироваться.",
+    "Steps": [
+      "Сравни Storage optimization исходного задания и настройки цепочки Backup Copy.",
+      "По KB1835 согласуй размер блоков и спланируй Active Full либо новую цепочку; заранее оцени место и время. Не удаляй рабочие точки ради устранения предупреждения."
+    ],
+    "Source": "https://www.veeam.com/kb1835",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина указана в сообщении",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "veeam.copy.incomplete",
+    "Providers": [
+      "Veeam"
+    ],
+    "Title": "Первичное копирование не завершено",
+    "Patterns": [
+      "initial copy did not complete"
+    ],
+    "Meaning": "Это итоговое уведомление о незавершённом Backup Copy, а не точное описание причины.",
+    "Impact": "Полноценная копия на втором хранилище ещё может отсутствовать.",
+    "Steps": [
+      "Открой подробности текущей сессии Backup Copy и найди первое конкретное сообщение.",
+      "Проверь доступность исходных точек, назначение и окно копирования. Разный размер блоков — лишь один из вариантов, описанный в KB1835."
+    ],
+    "Source": "https://www.veeam.com/kb1835",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "veeam.hyperv.cbt",
+    "Providers": [
+      "Veeam"
+    ],
+    "Title": "Не удалось сохранить данные отслеживания изменений",
+    "Patterns": [
+      "failed to flush change tracking data"
+    ],
+    "Meaning": "Сбой сохранения CBT на Hyper-V требует проверки узлов и компонентов Veeam.",
+    "Impact": "Отслеживание изменений может работать некорректно; проверь итог задания.",
+    "Steps": [
+      "Проверь доступность всех узлов кластера, состояние служб и режим обслуживания.",
+      "Сверь версии компонентов на узлах с сервером Veeam и изучи KB1934. Изменения реестра и перезапуск планируй только после подтверждения причины."
+    ],
+    "Source": "https://www.veeam.com/kb1934",
+    "Scope": "Hyper-V; не применять к VMware.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "veeam.vmware.snapshots",
+    "Providers": [
+      "Veeam"
+    ],
+    "Title": "Существующий snapshot мешает включить CBT",
+    "Patterns": [
+      "changed block tracking cannot be enabled: one or more snapshots are present"
+    ],
+    "Meaning": "Снимок ВМ препятствует включению VMware CBT; возможен переход к другому способу определения изменений.",
+    "Impact": "Обработка может стать медленнее. Это сообщение само по себе не доказывает отсутствие копии.",
+    "Steps": [
+      "Проверь снимки нужной ВМ и итог её обработки.",
+      "Для Cisco HyperFlex учитывай версию: описанная в KB3169 проблема Veeam 10 исправлена в v11. Не удаляй снимки и не меняй реестр без проверки их назначения."
+    ],
+    "Source": "https://www.veeam.com/kb3169",
+    "Scope": "VMware; отдельный сценарий Cisco HyperFlex в Veeam 10.",
+    "Confidence": "Причина указана в сообщении",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.backup.permissions",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "SQL Server не может записать файл копии",
+    "Patterns": [
+      "cannot open backup device.{0,220}(?:operating system error 5|access is denied)"
+    ],
+    "Meaning": "Отказ доступа при открытии backup device относится к записи копии службой SQL Server.",
+    "Impact": "Файл на этом этапе может не создаваться.",
+    "Steps": [
+      "Проверь путь и права именно учётной записи службы SQL Server, включая сетевой ресурс.",
+      "Выдай необходимые права только нужной службе; проверь запуск задания повторно. Учётная запись SQLBackupAndFTP и служба SQL Server могут различаться."
+    ],
+    "Source": "https://sqlbackupandftp.com/blog/cannot-open-backup-device-operating-system-error-5access-is-denied/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.login.denied",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Сервер базы отклонил доступ",
+    "Patterns": [
+      "access denied for user"
+    ],
+    "Meaning": "Сервер отверг учётную запись или её права.",
+    "Impact": "Операция с базой не выполнена; точная причина зависит от текста сервера.",
+    "Steps": [
+      "Сверь пользователя, сервер и способ подключения; проверь разрешения для резервного копирования.",
+      "Сравни контекст ручного и планового запуска. Не выдавай административные права всем пользователям."
+    ],
+    "Source": "https://sqlbackupandftp.com/blog/access-denied-for-user/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.certificate",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Сертификат SQL Server не прошёл проверку доверия",
+    "Patterns": [
+      "certificate chain was issued by an authority that is not trusted"
+    ],
+    "Meaning": "Клиент не доверяет цепочке сертификата сервера.",
+    "Impact": "Защищённое подключение не установлено.",
+    "Steps": [
+      "Проверь сертификат сервера, его срок, имя и доверенные корневые сертификаты на клиенте.",
+      "Предпочтительно настроить доверенную цепочку. Обход проверки сертификата не применять автоматически."
+    ],
+    "Source": "https://sqlbackupandftp.com/docs/docs/troubleshooting-and-support/self-troubleshooting/failed-to-connect-to-database/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.pgdump.version",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Версия pg_dump не совместима с PostgreSQL",
+    "Patterns": [
+      "aborting because of server version mismatch"
+    ],
+    "Meaning": "Утилита дампа сообщает о несовместимой версии.",
+    "Impact": "Дамп PostgreSQL на этом запуске не создан.",
+    "Steps": [
+      "Уточни версии сервера и pg_dump в журнале.",
+      "В SQLBackupAndFTP настрой каталог совместимых PostgreSQL binaries и повтори создание дампа."
+    ],
+    "Source": "https://sqlbackupandftp.com/docs/docs/troubleshooting-and-support/self-troubleshooting/failed-to-connect-to-database/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина указана в сообщении",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.chain",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Нарушена ожидаемая цепочка копий",
+    "Patterns": [
+      "(?:backup|broken).{0,45}chain.{0,25}(?:broken|break|error)",
+      "backup broken chain"
+    ],
+    "Meaning": "Программа обнаружила проблему ожидаемой цепочки. Вмешательство других заданий — возможная причина.",
+    "Impact": "Нельзя полагаться на автоматическое восстановление этой цепочки без проверки.",
+    "Steps": [
+      "Посмотри историю full/differential/log копий и другие средства резервного копирования.",
+      "Согласуй расписания и использование COPY_ONLY для разовых full-копий. Проверь пробное восстановление; новую full-копию планируй после выяснения причины."
+    ],
+    "Source": "https://sqlbackupandftp.com/docs/docs/job-settings/backup-job/backup-job-options/sql-server/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.settings.lock",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Заблокирована служебная база SQLBackupAndFTP",
+    "Patterns": [
+      "database is locked"
+    ],
+    "Meaning": "В SQLBackupAndFTP это сообщение может относиться к собственной SQLite-базе настроек.",
+    "Impact": "Операция программы может ожидать блокировку; это не диагноз повреждения пользовательского SQL Server.",
+    "Steps": [
+      "Проверь полный контекст строки и параллельные запуски SQLBackupAndFTP.",
+      "Посмотри рекомендации по времени ожидания SQLite в документации; не удаляй базу настроек."
+    ],
+    "Source": "https://sqlbackupandftp.com/docs/docs/troubleshooting-and-support/self-troubleshooting/timeouts-and-limits/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.ag.replica",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Реплика Availability Group недоступна для этой операции",
+    "Patterns": [
+      "participating in an availability group.{0,160}not accessible for queries"
+    ],
+    "Meaning": "Выбранная реплика не допускает нужный запрос.",
+    "Impact": "Запрошенная операция с базой не выполнена.",
+    "Steps": [
+      "Уточни роль и доступность реплики, политику preferred backup replica.",
+      "Согласуй настройки задания с политикой AG. Не превращай пропуск базы в успешный бэкап."
+    ],
+    "Source": "https://sqlbackupandftp.com/docs/docs/troubleshooting-and-support/self-troubleshooting/timeouts-and-limits/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.service.timeout",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Истекло ожидание локальной службы",
+    "Patterns": [
+      "net\\.pipe.{0,180}(?:timed out|timeout)",
+      "(?:timed out|timeout).{0,180}net\\.pipe"
+    ],
+    "Meaning": "Сообщение относится к взаимодействию программы с локальной службой.",
+    "Impact": "Операция могла прерваться до завершения; наличие файла не подтверждает корректную копию.",
+    "Steps": [
+      "Проверь состояние службы SQLBackupAndFTP и журнал этой сессии.",
+      "Отличай тайм-аут службы от тайм-аута SQL-запроса и загрузки в хранилище."
+    ],
+    "Source": "https://sqlbackupandftp.com/docs/docs/troubleshooting-and-support/self-troubleshooting/timeouts-and-limits/",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "abb.disk.23",
+    "Providers": [
+      "Active Backup for Business"
+    ],
+    "Title": "Ошибка чтения диска: код 23",
+    "Patterns": [
+      "(?:error(?: code)?|код(?: ошибки)?|ошибка)\\s*[:=#-]?\\s*23\\b"
+    ],
+    "Meaning": "В справочнике ABB код 23 связан с плохими секторами выбранного диска.",
+    "Impact": "Часть данных источника может не попасть в копию.",
+    "Steps": [
+      "Определи диск источника по журналу ABB; проверь Windows System log и диагностику диска.",
+      "Перед тяжёлым сканированием или ремонтом сохрани доступные данные и оцени состояние накопителя. После устранения причины проверь новую копию."
+    ],
+    "Source": "https://kb.synology.com/en-us/DSM/tutorial/How_to_fix_Active_Backup_for_Business_error_code_23",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Значение кода подтверждено справочником",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "abb.io.1117",
+    "Providers": [
+      "Active Backup for Business"
+    ],
+    "Title": "Сбой ввода-вывода при доступе к снимку",
+    "Patterns": [
+      "(?:error(?: code)?|код(?: ошибки)?|ошибка)\\s*[:=#-]?\\s*1117\\b"
+    ],
+    "Meaning": "Код 1117 означает ошибку ввода-вывода при доступе к снимку.",
+    "Impact": "Источник не прочитан полностью. Один код не устанавливает, какой компонент неисправен.",
+    "Steps": [
+      "Сопоставь время с журналами Windows Disk/Storage/VSS и логом ABB.",
+      "Проверь накопитель, подключение и состояние снимка; не удаляй все теневые копии без разбора."
+    ],
+    "Source": "https://kb.synology.com/en-us/DSM/tutorial/How_to_fix_Active_Backup_for_Business_error_code_1117",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Значение кода подтверждено справочником",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "abb.vss.missing",
+    "Providers": [
+      "Active Backup for Business"
+    ],
+    "Title": "Агент не нашёл снимок VSS",
+    "Patterns": [
+      "\\b0x80042308\\b"
+    ],
+    "Meaning": "ABB не нашёл снимок, созданный для задания.",
+    "Impact": "Чтение данных из нужного снимка не завершилось.",
+    "Steps": [
+      "Проверь журнал VSS на исходном компьютере и подробности ABB.",
+      "Проверь пересечение с другими задачами создания/удаления снимков и доступность тома. Причину исчезновения снимка установи по журналам."
+    ],
+    "Source": "https://kb.synology.com/en-us/DSM/tutorial/How_to_fix_Active_Backup_for_Business_error_code_0x80042308",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Значение кода подтверждено справочником",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "abb.vss.provider",
+    "Providers": [
+      "Active Backup for Business"
+    ],
+    "Title": "Ошибка поставщика VSS",
+    "Patterns": [
+      "\\b0x800423(?:0f|06)\\b"
+    ],
+    "Meaning": "Возможен конфликт или несовместимость поставщиков VSS и других приложений.",
+    "Impact": "Снимок не создан; проверяй результат по каждому защищаемому тому.",
+    "Steps": [
+      "На исходном Windows-компьютере проверь vssadmin list providers и журнал VSS.",
+      "Если присутствует Synology VSS HW Provider, сверись со статьёй Synology и назначением Storage Console. Не удаляй поставщиков вслепую."
+    ],
+    "Source": "https://kb.synology.com/hu-hu/DSM/tutorial/How_to_fix_Active_Backup_for_Business_error_code_0x8004230f",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "abb.vss.volume",
+    "Providers": [
+      "Active Backup for Business"
+    ],
+    "Title": "Не удалось создать снимок тома",
+    "Patterns": [
+      "\\b0x8004230c\\b"
+    ],
+    "Meaning": "ABB не может сделать снимок выбранного тома. Возможны ограничения тома или проблемы VSS.",
+    "Impact": "Этот том может быть не защищён текущей копией.",
+    "Steps": [
+      "Определи том по логу, проверь VSS и тип тома на источнике.",
+      "Сверь ограничения со статьёй Synology; виртуальные тома Xbox — один из известных сценариев. Исключай том только если его данные не нужны."
+    ],
+    "Source": "https://kb.synology.com/hu-hu/DSM/tutorial/How_to_fix_Active_Backup_for_Business_error_code_0x8004230c",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "dsm.raid.degraded",
+    "Providers": [
+      "DSM"
+    ],
+    "Title": "Пул хранения потерял часть отказоустойчивости",
+    "Patterns": [
+      "(?:storage pool|volume|raid|пул|том).{0,80}(?:degraded|деградир)",
+      "degraded.{0,60}(?:storage pool|volume|raid)"
+    ],
+    "Meaning": "DSM сообщает о деградации пула или тома.",
+    "Impact": "Следующий отказ может привести к потере доступности или данных; последствия зависят от RAID.",
+    "Steps": [
+      "Открой Storage Manager и установи, какой диск неисправен и какой RAID используется.",
+      "Проверь актуальную независимую копию. После идентификации диска следуй процедуре Repair своей версии DSM; не инициализируй пул."
+    ],
+    "Source": "https://kb.synology.com/en-us/DSM/help/DSM/StorageManager/storage_pool_repair?version=7",
+    "Scope": "DSM; действия зависят от RAID и версии.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "dsm.space",
+    "Providers": [
+      "DSM"
+    ],
+    "Title": "Недостаточно свободного места на томе",
+    "Patterns": [
+      "(?:volume|том).{0,90}(?:insufficient|low|running out).{0,25}(?:space|capacity)",
+      "(?:insufficient|low).{0,30}(?:space|capacity).{0,60}volume"
+    ],
+    "Meaning": "Предупреждение относится к свободной ёмкости тома.",
+    "Impact": "Новые записи и задания могут остановиться.",
+    "Steps": [
+      "В Storage Manager проверь свободное место и потребителей.",
+      "Согласуй очистку с политикой хранения копий либо расширение тома. Не удаляй цепочки резервных копий вручную."
+    ],
+    "Source": "https://kb.synology.com/index.php/da-dk/DSM/help/DSM/StorageManager/volume_view_usage?version=7",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "hbs.folders",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "Пара папок недоступна или некорректна",
+    "Patterns": [
+      "folder pairs are invalid or inaccessible"
+    ],
+    "Meaning": "HBS не может использовать выбранную пару исходной и целевой папок.",
+    "Impact": "Эта часть задания не выполняется.",
+    "Steps": [
+      "Проверь существование папок, подключение назначения и права аккаунта задания.",
+      "Для внешнего диска проверь его метку: её изменение может изменить путь. Исправь пару папок и повтори проверку."
+    ],
+    "Source": "https://www.qnap.com/en-us/how-to/faq/article/why-did-my-hbs-job-fail-with-a-folder-pairs-are-invalid-or-inaccessible-error-when-backing-up-or-syncing-to-an-external-device",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "hbs.versions",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "Не удалось создать несколько версий копии",
+    "Patterns": [
+      "failed to create multiple versions"
+    ],
+    "Meaning": "В известном сценарии HBS внешний диск использует файловую систему без поддержки нужного режима версий.",
+    "Impact": "Ожидаемая история версий не создана.",
+    "Steps": [
+      "Проверь файловую систему назначения и ограничения своей версии HBS; статья описывает FAT32/exFAT.",
+      "Выбери совместимое назначение. Перед сменой файловой системы перенеси данные: форматирование их уничтожает."
+    ],
+    "Source": "https://www.qnap.com/en/how-to/faq/article/why-hbs-prompt-warning-failed-to-create-multiple-versions-when-creating-backup-job-to-external-drive",
+    "Scope": "Статья: HBS 3 v16+, QTS 4.4.1+; внешнее назначение.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "hbs.attributes",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "Не все расширенные атрибуты перенесены",
+    "Patterns": [
+      "not all extended attributes are copied"
+    ],
+    "Meaning": "HBS сообщает о неполном переносе атрибутов; в известных сценариях влияют символические ссылки и имена файлов.",
+    "Impact": "Данные могут быть скопированы с потерей части метаданных; проверь список затронутых файлов.",
+    "Steps": [
+      "В журнале HBS экспортируй список пропущенных файлов и проверь конкретные объекты.",
+      "Сверь возможности файловой системы назначения. Фильтр исключения ссылок используй только если они действительно не нужны в копии."
+    ],
+    "Source": "https://www.qnap.com/en/how-to/faq/article/how-can-i-deal-with-the-warning-not-all-extended-attributes-are-copied-in-hbs",
+    "Scope": "Проверь применимость статьи к своей версии продукта.",
+    "Confidence": "Причина требует проверки",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "qnap.pool.degraded",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "Пул QNAP работает с деградировавшим RAID",
+    "Patterns": [
+      "warning\\s*\\(degraded\\)",
+      "(?:storage pool|raid).{0,50}(?:is degraded|in degraded|status.{0,10}degraded)"
+    ],
+    "Meaning": "RAID-группа деградировала; запасного диска может не хватать.",
+    "Impact": "Устойчивость к дальнейшим отказам снижена.",
+    "Steps": [
+      "Проверь группы RAID и диски в Storage & Snapshots.",
+      "Проверь независимую копию и план замены. Не инициализируй пул."
+    ],
+    "Source": "https://docs.qnap.com/operating-system/qts/5.2.x/en-us/storage-pool-status-4469DFB5.html",
+    "Scope": "QTS 5.2.x.",
+    "Confidence": "Значение статуса подтверждено",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "qnap.pool.rebuild",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "Идёт восстановление RAID",
+    "Patterns": [
+      "warning\\s*\\(rebuilding\\)"
+    ],
+    "Meaning": "QTS восстанавливает RAID после отказа.",
+    "Impact": "Защита ограничена до завершения; возможна потеря скорости.",
+    "Steps": [
+      "Проверь прогресс и оставшиеся диски.",
+      "Не прерывай восстановление; дождись Ready."
+    ],
+    "Source": "https://docs.qnap.com/operating-system/qts/5.2.x/en-us/storage-pool-status-4469DFB5.html",
+    "Scope": "QTS 5.2.x.",
+    "Confidence": "Значение статуса подтверждено",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "qnap.pool.readonly",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "Пул недоступен для обычной записи",
+    "Patterns": [
+      "warning\\s*\\(read-only\\)"
+    ],
+    "Meaning": "Одна из RAID-групп неактивна.",
+    "Impact": "Запись недоступна; часть данных ещё можно спасти.",
+    "Steps": [
+      "Сохрани доступные данные на другом устройстве.",
+      "Проверь процедуру восстановления QNAP. Не форматируй диски."
+    ],
+    "Source": "https://docs.qnap.com/operating-system/qts/5.2.x/en-us/storage-pool-status-4469DFB5.html",
+    "Scope": "QTS 5.2.x.",
+    "Confidence": "Значение статуса подтверждено",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "qnap.pool.threshold",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "Использование пула достигло порога",
+    "Patterns": [
+      "warning\\s*\\(threshold reached\\)"
+    ],
+    "Meaning": "Использованная ёмкость достигла настроенного порога уведомления.",
+    "Impact": "Порог уведомления не означает полное заполнение.",
+    "Steps": [
+      "Проверь свободное место и рост данных.",
+      "Спланируй очистку или расширение. Не скрывай уведомление повышением порога."
+    ],
+    "Source": "https://docs.qnap.com/operating-system/qts/5.2.x/en-us/storage-pool-status-4469DFB5.html",
+    "Scope": "QTS 5.2.x.",
+    "Confidence": "Значение статуса подтверждено",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "qnap.pool.space",
+    "Providers": [
+      "QNAP",
+      "QNAP HBS"
+    ],
+    "Title": "В пуле осталось мало места",
+    "Patterns": [
+      "warning\\s*\\(space low\\)"
+    ],
+    "Meaning": "Свободная ёмкость пула заканчивается.",
+    "Impact": "Могут остановиться запись, снимки и приложения.",
+    "Steps": [
+      "Проверь распределение места и политику хранения.",
+      "Спланируй освобождение или расширение ёмкости."
+    ],
+    "Source": "https://docs.qnap.com/operating-system/qts/5.2.x/en-us/storage-pool-status-4469DFB5.html",
+    "Scope": "QTS 5.2.x.",
+    "Confidence": "Значение статуса подтверждено",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "windows.vss.space",
+    "Providers": [
+      "Veeam",
+      "Active Backup for Business"
+    ],
+    "Title": "Не хватает места для теневого снимка",
+    "Patterns": [
+      "\\b0x8004231f\\b",
+      "\\bVSS_E_INSUFFICIENT_STORAGE\\b"
+    ],
+    "Meaning": "VSS не хватает дискового пространства для создания снимка.",
+    "Impact": "Без снимка часть данных может не обрабатываться.",
+    "Steps": [
+      "На источнике проверь свободное место и vssadmin list shadowstorage.",
+      "Согласуй освобождение места или изменение лимита хранения снимков. Не удаляй все снимки автоматически."
+    ],
+    "Source": "https://learn.microsoft.com/en-us/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-endpreparesnapshots",
+    "Scope": "Windows VSS; код определяет сбой компонента, а не общий итог задания.",
+    "Confidence": "Значение сообщения подтверждено документацией",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "windows.vss.timeout",
+    "Providers": [
+      "Veeam",
+      "Active Backup for Business"
+    ],
+    "Title": "Компонент VSS не уложился в время",
+    "Patterns": [
+      "\\bVSS_E_WRITERERROR_TIMEOUT\\b"
+    ],
+    "Meaning": "Writer VSS не завершил этап за допустимое время.",
+    "Impact": "Согласованность копии соответствующего приложения требует проверки.",
+    "Steps": [
+      "Определи writer через vssadmin list writers и журнал Application.",
+      "Проверь нагрузку и пересечение заданий; повтори в менее загруженное окно. Перезапуск рабочей службы требует согласованного обслуживания."
+    ],
+    "Source": "https://learn.microsoft.com/en-us/windows/win32/vss/writer-errors-and-vetoes",
+    "Scope": "Windows VSS; код определяет сбой компонента, а не общий итог задания.",
+    "Confidence": "Значение сообщения подтверждено документацией",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "windows.vss.retry",
+    "Providers": [
+      "Veeam",
+      "Active Backup for Business"
+    ],
+    "Title": "Временная ошибка writer VSS",
+    "Patterns": [
+      "\\bVSS_E_WRITERERROR_RETRYABLE\\b"
+    ],
+    "Meaning": "Writer допускает, что повторная попытка без перенастройки может помочь.",
+    "Impact": "Текущий сбой не исчезает от самой рекомендации повторить.",
+    "Steps": [
+      "Проверь состояние writer и повторный запуск.",
+      "При повторении изучи журнал конкретного приложения; перезапуск его службы планируй с учётом доступности."
+    ],
+    "Source": "https://learn.microsoft.com/en-us/windows/win32/vss/writer-errors-and-vetoes",
+    "Scope": "Windows VSS; код определяет сбой компонента, а не общий итог задания.",
+    "Confidence": "Значение сообщения подтверждено документацией",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "windows.vss.nonretry",
+    "Providers": [
+      "Veeam",
+      "Active Backup for Business"
+    ],
+    "Title": "Серьёзная ошибка writer VSS",
+    "Patterns": [
+      "\\b0x800423f4\\b",
+      "\\bVSS_E_WRITERERROR_NONRETRYABLE\\b"
+    ],
+    "Meaning": "Writer отказал при подготовке снимка; одного повторного запуска недостаточно для диагностики.",
+    "Impact": "Данные приложения могут не получить согласованную копию.",
+    "Steps": [
+      "Определи writer и первое связанное событие Application.",
+      "Если это SQLWriter, проверь SQLVDI/SQLWriter и конкретный экземпляр SQL. Код сам по себе не доказывает, что неисправен именно SQL."
+    ],
+    "Source": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/backup-and-storage/backup-fails-vss-writer",
+    "Scope": "Windows VSS; код определяет сбой компонента, а не общий итог задания.",
+    "Confidence": "Значение сообщения подтверждено документацией",
+    "Reviewed": "09.10.2026"
+  },
+  {
+    "Id": "sql.log.no-full",
+    "Providers": [
+      "SQLBackupAndFTP"
+    ],
+    "Title": "Нельзя создать копию журнала без начальной копии базы",
+    "Patterns": [
+      "backup log cannot be performed because there is no current database backup"
+    ],
+    "Meaning": "SQL Server сообщает, что текущей цепочке журнала не хватает начальной копии базы.",
+    "Impact": "Копия журнала этой попыткой не создана.",
+    "Steps": [
+      "Проверь модель восстановления, историю и недавние изменения модели.",
+      "Спланируй полную копию для начала цепочки и затем проверь log backup и восстановление. Не меняй модель восстановления автоматически."
+    ],
+    "Source": "https://sqlbackupandftp.com/blog/backup-log-cannot-be-performed-because-there-is-no-current-database-backup/",
+    "Scope": "SQL Server: резервное копирование журнала транзакций.",
+    "Confidence": "Значение сообщения подтверждено документацией",
+    "Reviewed": "09.10.2026"
+  }
+]

@@ -1,0 +1,249 @@
+Лицензионное соглашение SysAdmin Assistant
+
+Редакция 1.2 · 22 ноября 2026 года
+
+1. Стороны и предмет соглашения
+
+1.1. Орлов Александр Юрьевич (Правообладатель) предоставляет право использования SysAdmin Assistant на условиях этого соглашения. Сайты и контакт для обращений указаны в конце документа.
+
+1.2. «Программа» включает предоставляемые Правообладателем сервер, клиент, агенты мониторинга, установщики, средства обновления и сопроводительную документацию. Для отдельно обозначенных сторонних компонентов действуют их собственные лицензии.
+
+1.3. Пользователем может быть физическое или юридическое лицо. Лицо, принимающее соглашение от имени организации, должно иметь необходимые полномочия.
+
+2. Принятие условий
+
+2.1. До принятия условий вы можете прочитать и сохранить текст соглашения. Чтобы принять условия, установите флажок согласия и нажмите кнопку продолжения в установщике или при первом запуске версии без установщика. Скачивание файла само по себе не считается принятием.
+
+2.2. Если вы не согласны с условиями, не устанавливайте и не используйте эту версию. До принятия этой редакции условия ранее предоставленных лицензий не меняются.
+
+3. Предоставляемые права
+
+3.1. Правообладатель безвозмездно предоставляет простую (неисключительную) лицензию на установку и использование Программы для личных нужд и внутренних нужд организаций, включая коммерческие организации. Плата за такую лицензию не взимается.
+
+3.2. Разрешаются установка на необходимое количество собственных или законно администрируемых устройств, запуск компонентов, создание резервных копий и использование предусмотренных интерфейсов и настроек. Лицензия действует во всём мире в течение срока действия исключительного права, если не прекращена на законных основаниях.
+
+3.3. Права использования, изучения, изменения и распространения Программы определяются прилагаемой английской лицензией LICENSE.txt — SysAdmin Assistant Source-Available License версии 1.0. Разрешено внутреннее использование в коммерческих организациях. Продажа Программы и изменённых версий, а также включение в платные продукты запрещены без отдельного письменного разрешения. Платные установка, настройка, обучение и поддержка разрешены на условиях этой лицензии.
+
+3.4. В части прав использования, изменения и распространения преимущество имеет LICENSE.txt. Исключительное право не передаётся. Сторонние компоненты сохраняют собственные лицензии. Новая редакция не отменяет задним числом права, правомерно предоставленные для копий по прежним условиям.
+
+4. Назначение и ограничения результатов
+
+4.1. Программа является вспомогательным инструментом администрирования, учёта и мониторинга. Она не заменяет резервное копирование, независимый контроль доступности, средства защиты информации, профессиональную проверку конфигураций и контроль финансовых обязательств.
+
+4.2. Состояния устройств, анализ журналов, писем и конфигураций, рекомендации безопасности, распознавание документов, реквизитов и сумм могут содержать ошибки, пропуски и ложные срабатывания. Отсутствие предупреждения не доказывает отсутствие неисправностей, угроз, задолженности или иных проблем. Полученный отчёт о резервном копировании не доказывает возможность восстановления данных.
+
+4.3. Перед оплатой, учётной операцией или принятием решения самостоятельно проверьте результаты распознавания. Перед выполнением команды или применением рекомендации убедитесь, что она подходит для вашей системы.
+
+4.4. Уведомления могут задерживаться или не доставляться из-за состояния сервера, сети, почты, внешних сервисов, настроек и иных обстоятельств. Программа не предназначена для использования как единственное средство контроля систем, отказ которых способен причинить вред жизни, здоровью либо привести к иным критическим последствиям.
+
+5. Отсутствие гарантий
+
+5.1. В пределах, допускаемых применимым законодательством, Программа предоставляется «как есть» и «по мере доступности», без договорных гарантий бесперебойной работы, отсутствия ошибок и уязвимостей, совместимости с любой системой, точности результатов и пригодности для конкретной цели.
+
+5.2. Правообладатель не принимает на себя обязательства обеспечивать определённый уровень доступности, время реакции, исправление каждой ошибки, выпуск обновлений либо постоянную совместимость со сторонними продуктами, если иное прямо не предусмотрено отдельным письменным договором.
+
+5.3. Бесплатное распространение, предоставление документации и ответы на обращения сами по себе не создают обязательства технической поддержки или соглашения об уровне обслуживания.
+
+6. Ограничение ответственности
+
+6.1. В максимально допустимых законом пределах Правообладатель не несёт ответственности за последствия неумышленных ошибок и недостатков безвозмездно предоставленной Программы, включая потерю или повреждение данных, простой, утрату доступа, неполученные или ошибочные уведомления, ошибочное распознавание, пропущенные платежи, расходы на восстановление и упущенную выгоду, возникшие вследствие её использования или невозможности использования.
+
+6.2. В тех же пределах исключается ответственность за последствия самостоятельного применения пользователем рекомендаций, изменения конфигураций, решений по результатам мониторинга, а также работы внешних сервисов и компонентов, не контролируемых Правообладателем.
+
+6.3. Если отдельное ограничение неприменимо, ответственность определяется применимым законодательством. Бесплатность Программы не толкуется как автоматическое освобождение от любой предусмотренной законом ответственности.
+
+7. Обязанности пользователя
+
+7.1. Пользователь отвечает за наличие законных оснований для доступа к контролируемым системам, журналам, почте, документам и персональным данным, а также за необходимые разрешения и информирование соответствующих лиц.
+
+7.2. Пользователь самостоятельно обеспечивает резервное копирование базы, настроек и значимых данных; защиту серверов и рабочих станций; разграничение прав; сохранность ключей, токенов и паролей; проверку доверенных сетей и сертификатов; своевременную установку необходимых обновлений.
+
+7.3. Перед изменениями пользователь оценивает совместимость и возможность восстановления. Нельзя полагаться на сохранность данных без проверенной резервной копии либо передавать секреты в общедоступные журналы и обращения поддержки.
+
+8. Данные и внешние сервисы
+
+8.1. Состав обрабатываемых данных и внешних подключений зависит от используемых функций и настроек. Интеграции могут передавать сведения настроенным почтовым системам, Telegram, внешнему сервису контроля доступности, источникам обновлений и другим выбранным пользователем системам.
+
+8.2. Пользователь определяет допустимость таких подключений, содержание передаваемых уведомлений и права получателей. На сторонние сервисы распространяются их условия использования и правила обработки данных.
+
+8.3. Соглашение не является универсальным согласием на обработку персональных данных и не заменяет необходимых уведомлений, правовых оснований и отдельных документов о конфиденциальности. Обращения поддержки следует очищать от секретов и избыточных персональных данных.
+
+9. Установка и обновления
+
+9.1. Пользователь разрешает установку выбранных компонентов и выполнение необходимых действий, описанных установщиком, в пределах предоставленных прав. Наличие механизма обслуживания и обновления агента не означает разрешения на произвольное удалённое выполнение команд мониторинга.
+
+9.2. Обновление сервера и клиента запускается пользователем через соответствующие функции клиента с проверкой полномочий. Обновления агентов могут устанавливаться автоматически в соответствии с настройками их развёртывания. Получение пакетов может требовать соединения с настроенным источником выпусков.
+
+9.3. Проверка подписи пакета подтверждает его происхождение и целостность в рамках используемого механизма, но не гарантирует отсутствие программных ошибок. Нельзя отключать проверку подлинности ради установки пакета с ошибкой проверки.
+
+9.4. Обновление может потребовать перезапуска компонентов и временно прервать мониторинг. Возможности отката зависят от версии и изменений структуры данных; наличие механизма отката не заменяет резервную копию.
+
+10. Сторонние компоненты
+
+10.1. Права на библиотеки, среды исполнения, инструменты и другие сторонние компоненты принадлежат их правообладателям. Соответствующие лицензии и уведомления предоставляются в составе дистрибутива либо в указанном в нём перечне.
+
+10.2. Настоящее соглашение не отменяет и не сужает права, предоставленные пользователю лицензиями сторонних компонентов. При противоречии в отношении конкретного стороннего компонента применяются его лицензионные условия.
+
+11. Прекращение и новые редакции
+
+11.1. Пользователь вправе прекратить использование и удалить Программу. Удаление компонентов не требует удаления собственных данных пользователя; порядок удаления данных определяется отдельно выбранными действиями и применимым законом.
+
+11.2. Прекращение лицензии вследствие нарушения допускается на основаниях и в порядке, предусмотренных законом. Правообладатель не приобретает права на данные пользователя и не вправе уничтожать их только вследствие лицензионного спора.
+
+11.3. Новая редакция соглашения применяется после предоставления пользователю её текста и надлежащего принятия. Публикация новой редакции на сайте сама по себе не изменяет ранее принятые условия задним числом.
+
+12. Заключительные положения
+
+12.1. К соглашению применяется право Российской Федерации с сохранением обязательных норм, применимых к конкретному пользователю. Подсудность и порядок защиты прав определяются применимым законом.
+
+12.2. Недействительность отдельного положения не влечёт недействительности остальных положений, если соглашение может действовать без него. Отдельный письменный договор имеет преимущество в части прямо урегулированных им отношений.
+
+12.3. В части прав использования, изменения и распространения исходной является английская лицензия LICENSE.txt. Остальные положения об эксплуатации приведены на русском и английском языках; обязательные права пользователя по применимому законодательству сохраняются.
+
+Правообладатель: Орлов Александр Юрьевич
+Сайт Программы: https://assistant.321.su
+Основной сайт разработчика: https://321.su
+Контакт: support@321.su
+
+
+APPENDIX — SOURCE LICENSE (AUTHORITATIVE ENGLISH TEXT)
+
+SysAdmin Assistant Source-Available License
+Version 1.0 — 22 November 2026
+
+Copyright © 2026 Aleksandr Yuryevich Orlov (Орлов Александр Юрьевич), 321.su.
+All rights reserved except as expressly granted below.
+
+1. Scope and definitions
+
+“Licensor” means the copyright holder named above. “Software” means the original
+SysAdmin Assistant source code, binaries, server, client, monitoring agents,
+installers, update tools and documentation supplied with this license, together
+with modifications and derivative works of that material. Separately identified
+third-party components are excluded and remain governed by their own licenses.
+
+“You” means an individual or legal entity exercising rights under this license.
+“Distribution” includes making copies available in source or executable form.
+“Paid Product” means a product, subscription or offering for which payment or
+other consideration is required to obtain the Software or a right to use it.
+
+2. Permissions
+
+Subject to this license, the Licensor grants You a worldwide, non-exclusive,
+royalty-free license for the duration of the applicable copyright to:
+
+a. install and use the Software for personal purposes and for the internal needs
+   of organizations, including commercial organizations;
+b. inspect, study, compile, test and modify the Software, and create derivative
+   works, for those purposes;
+c. make backup copies; and
+d. distribute original or modified copies free of charge, including through
+   public repositories and forks, provided the conditions below are met.
+
+Commercial organizations may use the Software in their ordinary business
+operations without paying the Licensor. This permission does not permit resale
+of the Software or its inclusion in a Paid Product.
+
+3. Paid professional services are permitted
+
+You may charge for installation, deployment, configuration, integration,
+training, administration, maintenance, technical support and custom development
+performed for a customer's own internal use.
+
+Payment must be for actual professional services, not for a license, copy,
+download, activation or right to use the Software. A service provider may supply
+the Software to its customer free of charge while charging separately for those
+services. The customer must receive the Software under this license and must not
+be required to purchase or renew a service in order to retain the rights granted
+by this license. Service charges must not be used to disguise a sale of the
+Software. The provider must not imply that it is the Licensor or an authorized
+representative without separate permission.
+
+4. Prohibited commercialization
+
+Without a separate written license from the Licensor, You must not:
+
+a. sell, resell, rent, lease or commercially sublicense the Software, including
+   modified versions, in source or executable form;
+b. charge for a copy, download, activation, license or right to use the Software;
+c. include, embed or distribute the Software or a derivative work as part of a
+   Paid Product, including a paid software bundle or subscription; or
+d. modify, rename or rebrand the Software for any of the prohibited purposes.
+
+Providing the Software as a hosted paid application whose access is sold is a
+Paid Product. Operating it for a customer's internal needs as part of the
+professional services permitted in Section 3 is permitted, provided that
+payment is for those services and not a Software access or license fee.
+
+5. Conditions of redistribution
+
+With every distributed copy, You must retain this license, copyright notices
+and applicable third-party notices. You must give recipients the rights granted
+here and may not impose additional terms that restrict those rights.
+
+You must clearly identify modified versions, describe material changes and not
+present them as official releases. This license does not grant ownership of
+project names, logos or trademarks, or permission to imply endorsement. Factual
+attribution and identification of compatibility are permitted.
+
+You retain copyright in Your original contributions. Modifications distributed
+as part of the Software must be offered under this license. This does not
+require publication of modifications used only internally, including custom
+development supplied to a customer for that customer's internal use under
+Section 3.
+
+6. Third-party rights and user data
+
+This license does not replace or restrict licenses of third-party components.
+Their licenses control those components. See THIRD_PARTY_NOTICES.md and the
+notices accompanying the relevant components. These restrictions apply only
+to material in which the Licensor can grant the relevant rights.
+
+Your monitoring data, databases, configurations and other user content remain
+Yours or their respective owners'. This license grants no rights to destroy,
+publish or commercially exploit that content.
+
+7. No warranty; limitation of liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED
+“AS IS” AND “AS AVAILABLE”, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY AND
+NON-INFRINGEMENT. THE LICENSOR DOES NOT PROMISE ERROR-FREE OR UNINTERRUPTED
+OPERATION, SUPPORT, UPDATES OR COMPATIBILITY WITH EVERY SYSTEM.
+
+TO THE SAME EXTENT, THE LICENSOR IS NOT LIABLE FOR DAMAGES ARISING FROM THE
+SOFTWARE OR THIS LICENSE, INCLUDING LOSS OF DATA, PROFITS OR ACCESS, DOWNTIME,
+MISSED NOTIFICATIONS OR RECOVERY COSTS. NOTHING EXCLUDES LIABILITY OR USER
+RIGHTS THAT CANNOT LAWFULLY BE EXCLUDED. Users remain responsible for lawful
+access, security, backups and independent verification of monitoring results.
+
+8. Termination and prior grants
+
+Rights are conditional on compliance. On breach, the Licensor may terminate
+this license to the extent and through the procedure permitted by applicable
+law. Following effective termination, You must cease exercising rights granted
+by this license, except rights that applicable law or a separate license
+preserves. Termination grants no right to delete Your own data.
+
+This license applies to copies supplied under it. It does not retroactively
+revoke rights validly granted for copies obtained under an earlier license.
+Changes to a website or repository do not, by themselves, change earlier grants.
+
+9. Interpretation and contact
+
+This license is governed by the laws of the Russian Federation, subject to
+mandatory protections under applicable law. Invalidity of one provision does
+not invalidate the remainder where it can operate independently. A separate
+written agreement prevails only for matters it expressly addresses.
+
+The English text of this license is authoritative for permissions to use,
+modify and distribute the Software. A translation is provided for convenience.
+For those permissions, this license takes precedence over accompanying
+end-user terms if they conflict. Mandatory legal rights remain unaffected.
+
+This is a custom source-available license with restrictions on resale and
+commercial distribution. It is not an OSI-approved open-source license.
+
+Contact for separate commercial permissions: support@321.su
+Project: https://assistant.321.su
+Licensor: Aleksandr Yuryevich Orlov (Орлов Александр Юрьевич), https://321.su

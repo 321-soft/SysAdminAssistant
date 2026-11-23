@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><EnableWindowsTargeting>true</EnableWindowsTargeting><RuntimeFrameworkVersion>10.0.13</RuntimeFrameworkVersion><ApplicationIcon>../SysAdminAssistant.Desktop/Assets/SysAdminAssistant.ico</ApplicationIcon></PropertyGroup>
+ <ItemGroup><ProjectReference Include="../SysAdminAssistant.Core/SysAdminAssistant.Core.csproj"/></ItemGroup>
+</Project>

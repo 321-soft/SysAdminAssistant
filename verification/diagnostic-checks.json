@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "catalogue_entries": 33,
+  "regex_fixtures": 58,
+  "engine": "Python re (catalogue data check only)",
+  "csharp_runtime": "not_run_no_sdk"
+}

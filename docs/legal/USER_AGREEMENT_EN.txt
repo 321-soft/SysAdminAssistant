@@ -1,0 +1,249 @@
+SysAdmin Assistant End User License Agreement
+
+Version 1.2 · 22 November 2026
+
+1. Parties and scope
+
+1.1. Орлов Александр Юрьевич (Aleksandr Yuryevich Orlov), the Licensor, grants the right to use SysAdmin Assistant under this Agreement. The websites and contact details are listed at the end of this document.
+
+1.2. The “Software” includes the server, client, monitoring agents, installers, update tools and accompanying documentation provided by the Licensor. Separately identified third-party components are subject to their own licenses.
+
+1.3. The user may be an individual or a legal entity. A person accepting this Agreement on behalf of an organization must have the necessary authority.
+
+2. Acceptance
+
+2.1. You can read and save this Agreement before accepting it. To accept, select the checkbox and click Continue in setup or when you first run a version distributed without an installer. Downloading a file alone does not constitute acceptance.
+
+2.2. If you do not agree to the terms, do not install or use this version. The terms of previously granted licenses remain unchanged until you accept this revision.
+
+3. License grant
+
+3.1. The Licensor grants a free, non-exclusive license to install and use the Software for personal purposes and the internal needs of organizations, including commercial organizations. No license fee is charged.
+
+3.2. The user may install the Software on as many devices as necessary that the user owns or lawfully administers, run its components, create backup copies and use its available interfaces and settings. The license applies worldwide for the duration of the exclusive rights, unless lawfully terminated.
+
+3.3. Permissions to use, study, modify and redistribute the Software are governed by the accompanying English LICENSE.txt, SysAdmin Assistant Source-Available License version 1.0. Internal use by commercial organizations is permitted. Selling the Software or modified versions, or including them in paid products, is prohibited without separate written permission. Paid installation, configuration, training and support are permitted under that license.
+
+3.4. LICENSE.txt takes precedence for permissions to use, modify and distribute the Software. Exclusive rights are not transferred. Third-party components retain their own licenses. Rights validly granted for copies obtained under an earlier license are not retroactively revoked.
+
+4. Purpose and limitations of results
+
+4.1. The Software is an aid for administration, record keeping and monitoring. It does not replace backups, independent availability checks, information security tools, professional configuration reviews or oversight of financial obligations.
+
+4.2. Device statuses, analysis of logs, email and configurations, security recommendations, and recognition of documents, payment details and amounts may contain errors, omissions and false positives. The absence of an alert does not prove the absence of faults, threats, outstanding payments or other problems. Receiving a backup report does not prove that data can be restored.
+
+4.3. Independently verify recognition results before making payments, recording transactions or making decisions. Check that commands and recommendations are appropriate for your system before using them.
+
+4.4. Notifications may be delayed or not delivered because of server, network, email, external service or configuration issues, or other circumstances. The Software is not intended to be the sole means of monitoring systems whose failure could cause harm to life or health or other critical consequences.
+
+5. Disclaimer of warranties
+
+5.1. To the extent permitted by applicable law, the Software is provided “as is” and “as available”, without contractual warranties of uninterrupted operation, freedom from errors or vulnerabilities, compatibility with every system, accuracy of results or fitness for a particular purpose.
+
+5.2. The Licensor undertakes no obligation to provide a particular level of availability, response time, correction of every defect, updates or continued compatibility with third-party products, unless expressly provided in a separate written agreement.
+
+5.3. Free distribution, provision of documentation and responses to inquiries do not, by themselves, create a technical support obligation or a service level agreement.
+
+6. Limitation of liability
+
+6.1. To the maximum extent permitted by law, the Licensor is not liable for consequences of unintentional errors or defects in the Software provided free of charge, including loss or corruption of data, downtime, loss of access, missing or incorrect notifications, recognition errors, missed payments, recovery costs and lost profits arising from use of, or inability to use, the Software.
+
+6.2. To the same extent, liability is excluded for consequences of the user’s independent application of recommendations, configuration changes or decisions based on monitoring results, and for the operation of external services and components outside the Licensor’s control.
+
+6.3. If a particular limitation is inapplicable, liability is determined by applicable law. The fact that the Software is free must not be interpreted as automatic exemption from every form of statutory liability.
+
+7. User responsibilities
+
+7.1. The user is responsible for having lawful grounds to access monitored systems, logs, email, documents and personal data, and for obtaining necessary permissions and informing the relevant persons.
+
+7.2. The user is responsible for backing up the database, settings and important data; protecting servers and workstations; managing access rights; safeguarding keys, tokens and passwords; checking trusted networks and certificates; and installing necessary updates in a timely manner.
+
+7.3. Before making changes, the user must assess compatibility and recovery options. The user must not rely on data preservation without a verified backup or disclose secrets in publicly accessible logs or support requests.
+
+8. Data and external services
+
+8.1. The data processed and external connections used depend on enabled features and settings. Integrations may transmit information to configured email systems, Telegram, an external availability monitoring service, update sources and other systems selected by the user.
+
+8.2. The user determines whether such connections are appropriate, what information notifications contain and who may receive them. Third-party services are subject to their own terms of use and data processing rules.
+
+8.3. This Agreement is not blanket consent to personal data processing and does not replace required notices, lawful grounds or separate privacy documents. Secrets and unnecessary personal data should be removed from support requests.
+
+9. Installation and updates
+
+9.1. The user authorizes installation of selected components and the necessary actions described by the installer, within the permissions granted. The presence of an agent maintenance and update mechanism does not constitute authorization for arbitrary remote execution of monitoring commands.
+
+9.2. Server and client updates are initiated by the user through the corresponding client functions, subject to authorization checks. Agent updates may be installed automatically according to their deployment settings. Obtaining packages may require a connection to the configured release source.
+
+9.3. Package signature verification confirms origin and integrity within the verification mechanism used, but does not guarantee freedom from software defects. Authenticity verification must not be disabled to install a package that fails verification.
+
+9.4. Updates may require component restarts and temporarily interrupt monitoring. Rollback options depend on the version and data structure changes; a rollback mechanism does not replace a backup.
+
+10. Third-party components
+
+10.1. Rights in third-party libraries, runtimes, tools and other components belong to their respective rights holders. Applicable licenses and notices are supplied with the distribution or in the list identified within it.
+
+10.2. This Agreement does not revoke or restrict rights granted under third-party component licenses. In the event of a conflict concerning a particular third-party component, its license terms apply.
+
+11. Termination and revisions
+
+11.1. The user may stop using and uninstall the Software. Removing components does not require deletion of the user’s own data; deletion of data is governed by separately selected actions and applicable law.
+
+11.2. Termination of the license for a breach is permitted on the grounds and under the procedure established by law. The Licensor acquires no rights in the user’s data and has no right to destroy it solely because of a licensing dispute.
+
+11.3. A revised Agreement applies after its text has been made available to the user and duly accepted. Publication of a revision on a website does not, by itself, retroactively change previously accepted terms.
+
+12. Final provisions
+
+12.1. This Agreement is governed by the law of the Russian Federation, without prejudice to mandatory rules applicable to a particular user. Jurisdiction and procedures for protecting rights are determined by applicable law.
+
+12.2. Invalidity of an individual provision does not invalidate the remaining provisions if the Agreement can operate without it. A separate written agreement prevails in matters expressly governed by it.
+
+12.3. The English LICENSE.txt is authoritative for permissions to use, modify and distribute the Software. Other operational provisions are provided in Russian and English; mandatory user rights under applicable law remain unaffected.
+
+Licensor: Орлов Александр Юрьевич (Aleksandr Yuryevich Orlov)
+Product website: https://assistant.321.su
+Developer’s main website: https://321.su
+Contact: support@321.su
+
+
+APPENDIX — SOURCE LICENSE (AUTHORITATIVE ENGLISH TEXT)
+
+SysAdmin Assistant Source-Available License
+Version 1.0 — 22 November 2026
+
+Copyright © 2026 Aleksandr Yuryevich Orlov (Орлов Александр Юрьевич), 321.su.
+All rights reserved except as expressly granted below.
+
+1. Scope and definitions
+
+“Licensor” means the copyright holder named above. “Software” means the original
+SysAdmin Assistant source code, binaries, server, client, monitoring agents,
+installers, update tools and documentation supplied with this license, together
+with modifications and derivative works of that material. Separately identified
+third-party components are excluded and remain governed by their own licenses.
+
+“You” means an individual or legal entity exercising rights under this license.
+“Distribution” includes making copies available in source or executable form.
+“Paid Product” means a product, subscription or offering for which payment or
+other consideration is required to obtain the Software or a right to use it.
+
+2. Permissions
+
+Subject to this license, the Licensor grants You a worldwide, non-exclusive,
+royalty-free license for the duration of the applicable copyright to:
+
+a. install and use the Software for personal purposes and for the internal needs
+   of organizations, including commercial organizations;
+b. inspect, study, compile, test and modify the Software, and create derivative
+   works, for those purposes;
+c. make backup copies; and
+d. distribute original or modified copies free of charge, including through
+   public repositories and forks, provided the conditions below are met.
+
+Commercial organizations may use the Software in their ordinary business
+operations without paying the Licensor. This permission does not permit resale
+of the Software or its inclusion in a Paid Product.
+
+3. Paid professional services are permitted
+
+You may charge for installation, deployment, configuration, integration,
+training, administration, maintenance, technical support and custom development
+performed for a customer's own internal use.
+
+Payment must be for actual professional services, not for a license, copy,
+download, activation or right to use the Software. A service provider may supply
+the Software to its customer free of charge while charging separately for those
+services. The customer must receive the Software under this license and must not
+be required to purchase or renew a service in order to retain the rights granted
+by this license. Service charges must not be used to disguise a sale of the
+Software. The provider must not imply that it is the Licensor or an authorized
+representative without separate permission.
+
+4. Prohibited commercialization
+
+Without a separate written license from the Licensor, You must not:
+
+a. sell, resell, rent, lease or commercially sublicense the Software, including
+   modified versions, in source or executable form;
+b. charge for a copy, download, activation, license or right to use the Software;
+c. include, embed or distribute the Software or a derivative work as part of a
+   Paid Product, including a paid software bundle or subscription; or
+d. modify, rename or rebrand the Software for any of the prohibited purposes.
+
+Providing the Software as a hosted paid application whose access is sold is a
+Paid Product. Operating it for a customer's internal needs as part of the
+professional services permitted in Section 3 is permitted, provided that
+payment is for those services and not a Software access or license fee.
+
+5. Conditions of redistribution
+
+With every distributed copy, You must retain this license, copyright notices
+and applicable third-party notices. You must give recipients the rights granted
+here and may not impose additional terms that restrict those rights.
+
+You must clearly identify modified versions, describe material changes and not
+present them as official releases. This license does not grant ownership of
+project names, logos or trademarks, or permission to imply endorsement. Factual
+attribution and identification of compatibility are permitted.
+
+You retain copyright in Your original contributions. Modifications distributed
+as part of the Software must be offered under this license. This does not
+require publication of modifications used only internally, including custom
+development supplied to a customer for that customer's internal use under
+Section 3.
+
+6. Third-party rights and user data
+
+This license does not replace or restrict licenses of third-party components.
+Their licenses control those components. See THIRD_PARTY_NOTICES.md and the
+notices accompanying the relevant components. These restrictions apply only
+to material in which the Licensor can grant the relevant rights.
+
+Your monitoring data, databases, configurations and other user content remain
+Yours or their respective owners'. This license grants no rights to destroy,
+publish or commercially exploit that content.
+
+7. No warranty; limitation of liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED
+“AS IS” AND “AS AVAILABLE”, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY AND
+NON-INFRINGEMENT. THE LICENSOR DOES NOT PROMISE ERROR-FREE OR UNINTERRUPTED
+OPERATION, SUPPORT, UPDATES OR COMPATIBILITY WITH EVERY SYSTEM.
+
+TO THE SAME EXTENT, THE LICENSOR IS NOT LIABLE FOR DAMAGES ARISING FROM THE
+SOFTWARE OR THIS LICENSE, INCLUDING LOSS OF DATA, PROFITS OR ACCESS, DOWNTIME,
+MISSED NOTIFICATIONS OR RECOVERY COSTS. NOTHING EXCLUDES LIABILITY OR USER
+RIGHTS THAT CANNOT LAWFULLY BE EXCLUDED. Users remain responsible for lawful
+access, security, backups and independent verification of monitoring results.
+
+8. Termination and prior grants
+
+Rights are conditional on compliance. On breach, the Licensor may terminate
+this license to the extent and through the procedure permitted by applicable
+law. Following effective termination, You must cease exercising rights granted
+by this license, except rights that applicable law or a separate license
+preserves. Termination grants no right to delete Your own data.
+
+This license applies to copies supplied under it. It does not retroactively
+revoke rights validly granted for copies obtained under an earlier license.
+Changes to a website or repository do not, by themselves, change earlier grants.
+
+9. Interpretation and contact
+
+This license is governed by the laws of the Russian Federation, subject to
+mandatory protections under applicable law. Invalidity of one provision does
+not invalidate the remainder where it can operate independently. A separate
+written agreement prevails only for matters it expressly addresses.
+
+The English text of this license is authoritative for permissions to use,
+modify and distribute the Software. A translation is provided for convenience.
+For those permissions, this license takes precedence over accompanying
+end-user terms if they conflict. Mandatory legal rights remain unaffected.
+
+This is a custom source-available license with restrictions on resale and
+commercial distribution. It is not an OSI-approved open-source license.
+
+Contact for separate commercial permissions: support@321.su
+Project: https://assistant.321.su
+Licensor: Aleksandr Yuryevich Orlov (Орлов Александр Юрьевич), https://321.su

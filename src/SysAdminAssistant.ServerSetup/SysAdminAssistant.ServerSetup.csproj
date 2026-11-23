@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><RuntimeFrameworkVersion>10.0.13</RuntimeFrameworkVersion>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <AssemblyName>SysAdminAssistant.ServerSetup</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>../SysAdminAssistant.Desktop/Assets/SysAdminAssistant.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../SysAdminAssistant.Core/SysAdminAssistant.Core.csproj" /></ItemGroup>
+  <ItemGroup><Content Include="../../scripts/legacy/CLEANUP_SERVER.ps1" Link="CLEANUP_SERVER.ps1" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
+<ItemGroup><Compile Include="../../packaging/SetupLanguage.cs" Link="SetupLanguage.cs" /></ItemGroup></Project>

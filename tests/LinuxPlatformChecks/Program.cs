@@ -1,0 +1,17 @@
+using SysAdminAssistant.Core;
+var p=new AgentPolicy();
+var r=new AgentReport{Os="Linux Debian",CpuPercent=5,MemoryTotalBytes=100,MemoryAvailableBytes=50,UptimeSeconds=3600};
+if(AgentChecks.Evaluate(r,p).Any(x=>x.Key.StartsWith("service:")))throw new Exception("Linux received Windows baseline");
+p.Services.Add(new AgentServiceRule("nginx.service"));
+if(!AgentChecks.Evaluate(r,p).Any(x=>x.Key=="service:nginx.service"))throw new Exception("Missing Linux service was ignored");
+r.Services=[new("nginx.service","nginx","Running")];
+if(AgentChecks.Evaluate(r,p).Any(x=>x.Key.StartsWith("service:")))throw new Exception("Running Linux service not recovered");
+r.Os="Microsoft Windows";
+if(!AgentChecks.Evaluate(r,new AgentPolicy()).Any(x=>x.Key=="service:EventLog"))throw new Exception("Windows baseline changed");
+if(System.Text.Json.JsonSerializer.Serialize(new AgentPolicy(),AgentWire.Json).Contains("NetworkRules"))throw new Exception("Windows compatibility policy field");
+r.Os="Linux Debian";r.Networks=[new("eth0","up",100000000,0,1000000000)];p.NetworkRules=[new("eth0",70,2)];
+if(!AgentChecks.Evaluate(r,p).Any(x=>x.Key=="network:eth0"))throw new Exception("Network threshold missing");
+r.Networks=[new("eth0","up",100000000,0,0)];if(AgentChecks.Evaluate(r,p).Any(x=>x.Key=="network:eth0"))throw new Exception("Unknown link speed must not alert");
+p.NetworkRules=[new("eth0",70,2,true,1000)];if(!AgentChecks.Evaluate(r,p).Any(x=>x.Key=="network:eth0"))throw new Exception("Manual link speed ignored");
+r.Services=[];r.Errors=["Не удалось получить службы systemd"];if(AgentChecks.Evaluate(r,p).Any(x=>x.Key.StartsWith("service:")))throw new Exception("Unavailable systemd produced false service failure");
+Console.WriteLine("PASS: Linux manual service monitoring and Windows defaults");

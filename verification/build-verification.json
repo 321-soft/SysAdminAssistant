@@ -1,0 +1,18 @@
+{
+  "version": "0.46.8",
+  "passed": [
+    "Desktop, agent, server and ServerSetup cross-builds with zero errors",
+    "2023 main specifications",
+    "Server startup upgrade from schema 7 missing inventory fields including HardwareJson",
+    "Actual unlocked server snapshots replace incorrect hardware and preserve accounting fields",
+    "Unlink stops hardware sync; deleting unused asset preserves workstation",
+    "Large hardware payload bounded to 40000 characters and retains installed memory count",
+    "SUBST and duplicate volume classification logic"
+  ],
+  "not_run": [
+    "Live Windows WMI/COM peripheral and hardware enumeration",
+    "Windows SUBST/native volume APIs on real disks",
+    "WPF Ctrl/Shift and context menu interactions",
+    "Windows SQL Server migration and full MSI publish/installation"
+  ]
+}

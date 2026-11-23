@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "engine": "Python sqlite3; DDL extracted from C# source",
+  "enum": {
+    "Both": 0,
+    "Subject": 1,
+    "Body": 2
+  },
+  "checks": [
+    "new column defaults to Subject",
+    "source filters empty and all-fields match enabled",
+    "custom dictionaries retained",
+    "repeated initialization preserves Both and Body",
+    "SQL Server DDL declares matching enum default (not executed)"
+  ],
+  "csharp_ef_core": "not_run_no_sdk",
+  "sql_server": "not_run"
+}

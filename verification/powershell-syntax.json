@@ -1,0 +1,67 @@
+[
+  {
+    "file": "BUILD_AGENT_LAUNCHER.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "BUILD_PRODUCT_SETUPS.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "CLEANUP_SERVER.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "DIAG_AGENT_PROCESSES.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "FETCH_INVOICE_RUNTIME.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "FETCH_RUNTIMES.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "INSTALL_AGENT.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "INSTALL_CLIENT.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "INSTALL_SERVER_BOOTSTRAP.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "PREPARE_RELEASE_KEY.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "SIGN_AGENT_RELEASE.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "UNINSTALL_CLIENT.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  },
+  {
+    "file": "verification/VerifyAgentWindows.ps1",
+    "code": 0,
+    "output": "PowerShell syntax: 0 errors\n"
+  }
+]

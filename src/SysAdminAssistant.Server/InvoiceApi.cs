@@ -1,0 +1,26 @@
+using System.Text.Json;
+using SysAdminAssistant.Core;
+using SysAdminAssistant.Infrastructure;
+namespace SysAdminAssistant.Server;
+public static class InvoiceApi
+{
+    public static void Map(WebApplication app,ServerState state)
+    {
+        var settings=new InvoiceSettingsStore(state.DirectoryPath);var store=new InvoiceStore(state.Factory);
+        app.MapGet("/api/invoices/settings",()=>settings.View());
+        app.MapPost("/api/invoices/settings",(InvoiceSettingsSave r)=>{settings.Save(r);if(r.Settings.Enabled){_ = Task.Run(async()=>{try{using var budget=new CancellationTokenSource(TimeSpan.FromMinutes(10));await InvoiceWorker.Poll(state,settings.Load(),budget.Token);}catch(Exception e){settings.Log("Начальная проверка: "+e.GetType().Name);}});}return true;});
+        app.MapPost("/api/invoices/template-test",async(System.Text.Json.JsonElement request,CancellationToken token)=>{var id=request.GetProperty("DocumentId").GetInt32();var template=request.GetProperty("Template").Deserialize<InvoiceTemplate>(RemoteData.Json)??throw new ArgumentException(global::SysAdminAssistant.Core.ProductText.Get("Нет шаблона"));InvoiceSettingsStore.Validate(new InvoiceSettings{Templates=[template]});var doc=await store.Detail(id,token);return InvoiceRecognition.Parse(new InvoiceExtract(doc.Data.RawText,doc.Data.Extraction,doc.Data.OcrConfidence,doc.Data.ExtractionError),doc.Data.Sender,doc.Data.Subject,doc.Data.ReceivedUtc,template,state.Settings.Company.WeekendMask);});
+        app.MapPost("/api/invoices/reprocess",async(CancellationToken token)=>{await state.Gate.WaitAsync(token);try{var count=await new InvoiceStore(state.Factory).Reprocess(settings.Load(),state.Settings.Company.WeekendMask,token);state.Touch();return count;}finally{state.Gate.Release();}});
+        app.MapPost("/api/invoices/upload",async(ExcelFile r,CancellationToken token)=>{if(r.File.Length is <1 or >8000000)throw new ArgumentException(global::SysAdminAssistant.Core.ProductText.Get("До 8 МБ"));var type=InvoiceExtraction.Type(r.File);InvoiceExtract extracted;try{var result=await InvoiceExtraction.Run(state.DirectoryPath,r.File,false,token);extracted=JsonSerializer.Deserialize<InvoiceExtract>(result,RemoteData.Json)!;}catch(Exception e)when(!token.IsCancellationRequested){extracted=new("","Ошибка извлечения",0,"Распознавание не завершено: "+e.GetType().Name);}var data=InvoiceRecognition.Parse(extracted,"Ручная загрузка",r.Name,DateTime.UtcNow,null,state.Settings.Company.WeekendMask);var digest=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(r.File));var name=new string(Path.GetFileNameWithoutExtension(r.Name).Where(c=>char.IsLetterOrDigit(c)||" ._-()".Contains(c)).Take(100).ToArray()).Trim(' ','.');if(name.Length==0)name="Счёт";name+=type=="application/pdf"?".pdf":type=="image/png"?".png":".jpg";await state.Gate.WaitAsync(token);try{var id=await new InvoiceStore(state.Factory).Ingest(digest,data,digest,name,type,r.File,false,state.Settings.Company.WeekendMask,token);state.Touch();return Math.Abs(id);}finally{state.Gate.Release();}});
+        app.MapGet("/api/invoices/history",()=>settings.History());
+        app.MapPost("/api/invoices/test",async(InvoiceSettingsSave r,CancellationToken token)=>{InvoiceSettingsStore.Validate(r.Settings);var password=r.Password.Length>0?r.Password:LocalSecret.Unprotect(StoredCredential.MailPassword(r.Settings.Mailbox,settings.Load().Mailbox));await InvoiceWorker.Test(r.Settings,password,token);return true;});
+        app.MapPost("/api/invoices/poll",()=>{_ = Task.Run(async()=>{try{var c=settings.Load();if(!c.Enabled){settings.Log("Сбор счетов выключен");return;}using var budget=new CancellationTokenSource(TimeSpan.FromMinutes(10));await InvoiceWorker.Poll(state,c,budget.Token);}catch(Exception e){settings.Log("Ошибка ручной проверки: "+e.GetType().Name);}});return true;});
+        app.MapGet("/api/invoices",async(int? paymentId,CancellationToken token)=>await store.List(token,paymentId));
+        app.MapGet("/api/invoices/payment-links",async(CancellationToken token)=>await store.Links(token));
+        app.MapGet("/api/invoices/{id:int}",async(int id,CancellationToken token)=>await store.Detail(id,token));
+        app.MapPost("/api/invoices/approve",async(InvoiceApproval r,CancellationToken token)=>{await state.Gate.WaitAsync(token);try{await new InvoiceStore(state.Factory).Approve(r,token);state.Touch();return true;}finally{state.Gate.Release();}});
+        app.MapPost("/api/invoices/ignore",async(VaultTarget r,CancellationToken token)=>{await state.Gate.WaitAsync(token);try{await new InvoiceStore(state.Factory).Ignore(r.Id,r.Revision,token);state.Touch();return true;}finally{state.Gate.Release();}});
+        app.MapGet("/api/invoices/file/{id:int}",async(int id,CancellationToken token)=>{var f=await store.File(id,token);return new ExcelFile(f.Data,f.Name);});
+        app.MapGet("/api/invoices/pdf/{id:int}",async(int id,CancellationToken token)=>{var f=await store.File(id,token);if(f.MediaType=="application/pdf")return new ExcelFile(f.Data,f.Name);var pdf=await InvoiceExtraction.Run(state.DirectoryPath,f.Data,true,token);return new ExcelFile(pdf,Path.GetFileNameWithoutExtension(f.Name)+"-converted.pdf");});
+    }
+}

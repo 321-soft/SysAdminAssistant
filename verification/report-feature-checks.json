@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "checks": {
+    "old_raw_body_deleted": true,
+    "old_intake_reference_deleted": true,
+    "hash_only_receipt_preserved": true,
+    "new_report_preserved": true,
+    "inventory_preserved": true,
+    "old_incident_deleted": true
+  },
+  "engine": "Python sqlite3; minimal schema and algorithm scenario",
+  "ef_core": "not_run",
+  "csharp_compilation": "not_run_no_sdk"
+}

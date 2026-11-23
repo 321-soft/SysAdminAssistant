@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <EmbeddedResource Include="Diagnostics/catalog.json" LogicalName="SysAdminAssistant.Core.Diagnostics.catalog.json" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../docs/legal/USER_AGREEMENT_RU.txt" LogicalName="SAA.EULA.RU"/><EmbeddedResource Include="../../docs/legal/USER_AGREEMENT_EN.txt" LogicalName="SAA.EULA.EN"/></ItemGroup>
+<ItemGroup><EmbeddedResource Include="../../packaging/ReleasePublicKey.xml" LogicalName="SAA.ReleasePublicKey"/></ItemGroup><ItemGroup><EmbeddedResource Include="Localization/en.json" LogicalName="SAA.Text.en"/></ItemGroup><ItemGroup><EmbeddedResource Include="Help/articles.json" LogicalName="SAA.Help"/></ItemGroup></Project>

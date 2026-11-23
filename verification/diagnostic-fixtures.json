@@ -1,0 +1,449 @@
+[
+  {
+    "Name": "veeam.config.encryption Veeam",
+    "Provider": "Veeam",
+    "Body": "Warning configuration backup encryption is disabled",
+    "Expected": [
+      "veeam.config.encryption"
+    ]
+  },
+  {
+    "Name": "veeam.copy.blocksize Veeam",
+    "Provider": "Veeam",
+    "Body": "Warning Source backup file has different block size",
+    "Expected": [
+      "veeam.copy.blocksize"
+    ]
+  },
+  {
+    "Name": "veeam.copy.incomplete Veeam",
+    "Provider": "Veeam",
+    "Body": "Warning Initial copy did not complete",
+    "Expected": [
+      "veeam.copy.incomplete"
+    ]
+  },
+  {
+    "Name": "veeam.hyperv.cbt Veeam",
+    "Provider": "Veeam",
+    "Body": "Warning Failed to flush change tracking data",
+    "Expected": [
+      "veeam.hyperv.cbt"
+    ]
+  },
+  {
+    "Name": "veeam.vmware.snapshots Veeam",
+    "Provider": "Veeam",
+    "Body": "Warning Changed block tracking cannot be enabled: one or more snapshots are present",
+    "Expected": [
+      "veeam.vmware.snapshots"
+    ]
+  },
+  {
+    "Name": "sql.backup.permissions SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Error Cannot open backup device C:\\copy.bak. Operating system error 5(Access is denied)",
+    "Expected": [
+      "sql.backup.permissions"
+    ]
+  },
+  {
+    "Name": "sql.login.denied SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Error Access denied for user",
+    "Expected": [
+      "sql.login.denied"
+    ]
+  },
+  {
+    "Name": "sql.certificate SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Error The certificate chain was issued by an authority that is not trusted",
+    "Expected": [
+      "sql.certificate"
+    ]
+  },
+  {
+    "Name": "sql.pgdump.version SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Error aborting because of server version mismatch",
+    "Expected": [
+      "sql.pgdump.version"
+    ]
+  },
+  {
+    "Name": "sql.chain SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Warning backup chain is broken",
+    "Expected": [
+      "sql.chain"
+    ]
+  },
+  {
+    "Name": "sql.settings.lock SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Error database is locked",
+    "Expected": [
+      "sql.settings.lock"
+    ]
+  },
+  {
+    "Name": "sql.ag.replica SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Error target database is participating in an availability group and is currently not accessible for queries",
+    "Expected": [
+      "sql.ag.replica"
+    ]
+  },
+  {
+    "Name": "sql.service.timeout SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "Error net.pipe operation timed out",
+    "Expected": [
+      "sql.service.timeout"
+    ]
+  },
+  {
+    "Name": "abb.disk.23 Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Error code: 23",
+    "Expected": [
+      "abb.disk.23"
+    ]
+  },
+  {
+    "Name": "abb.io.1117 Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Ошибка: 1117",
+    "Expected": [
+      "abb.io.1117"
+    ]
+  },
+  {
+    "Name": "abb.vss.missing Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Warning 0x80042308",
+    "Expected": [
+      "abb.vss.missing"
+    ]
+  },
+  {
+    "Name": "abb.vss.provider Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Error 0x8004230F",
+    "Expected": [
+      "abb.vss.provider"
+    ]
+  },
+  {
+    "Name": "abb.vss.volume Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Error 0x8004230C",
+    "Expected": [
+      "abb.vss.volume"
+    ]
+  },
+  {
+    "Name": "dsm.raid.degraded DSM",
+    "Provider": "DSM",
+    "Body": "Warning storage pool is degraded",
+    "Expected": [
+      "dsm.raid.degraded"
+    ]
+  },
+  {
+    "Name": "dsm.space DSM",
+    "Provider": "DSM",
+    "Body": "Warning volume is running out of space",
+    "Expected": [
+      "dsm.space"
+    ]
+  },
+  {
+    "Name": "hbs.folders QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning Folder pairs are invalid or inaccessible",
+    "Expected": [
+      "hbs.folders"
+    ]
+  },
+  {
+    "Name": "hbs.folders QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning Folder pairs are invalid or inaccessible",
+    "Expected": [
+      "hbs.folders"
+    ]
+  },
+  {
+    "Name": "hbs.versions QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning Failed to create Multiple Versions",
+    "Expected": [
+      "hbs.versions"
+    ]
+  },
+  {
+    "Name": "hbs.versions QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning Failed to create Multiple Versions",
+    "Expected": [
+      "hbs.versions"
+    ]
+  },
+  {
+    "Name": "hbs.attributes QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning Not all extended attributes are copied",
+    "Expected": [
+      "hbs.attributes"
+    ]
+  },
+  {
+    "Name": "hbs.attributes QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning Not all extended attributes are copied",
+    "Expected": [
+      "hbs.attributes"
+    ]
+  },
+  {
+    "Name": "qnap.pool.degraded QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning (Degraded)",
+    "Expected": [
+      "qnap.pool.degraded"
+    ]
+  },
+  {
+    "Name": "qnap.pool.degraded QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning (Degraded)",
+    "Expected": [
+      "qnap.pool.degraded"
+    ]
+  },
+  {
+    "Name": "qnap.pool.rebuild QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning (Rebuilding)",
+    "Expected": [
+      "qnap.pool.rebuild"
+    ]
+  },
+  {
+    "Name": "qnap.pool.rebuild QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning (Rebuilding)",
+    "Expected": [
+      "qnap.pool.rebuild"
+    ]
+  },
+  {
+    "Name": "qnap.pool.readonly QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning (Read-Only)",
+    "Expected": [
+      "qnap.pool.readonly"
+    ]
+  },
+  {
+    "Name": "qnap.pool.readonly QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning (Read-Only)",
+    "Expected": [
+      "qnap.pool.readonly"
+    ]
+  },
+  {
+    "Name": "qnap.pool.threshold QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning (Threshold Reached)",
+    "Expected": [
+      "qnap.pool.threshold"
+    ]
+  },
+  {
+    "Name": "qnap.pool.threshold QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning (Threshold Reached)",
+    "Expected": [
+      "qnap.pool.threshold"
+    ]
+  },
+  {
+    "Name": "qnap.pool.space QNAP",
+    "Provider": "QNAP",
+    "Body": "Warning (Space Low)",
+    "Expected": [
+      "qnap.pool.space"
+    ]
+  },
+  {
+    "Name": "qnap.pool.space QNAP HBS",
+    "Provider": "QNAP HBS",
+    "Body": "Warning (Space Low)",
+    "Expected": [
+      "qnap.pool.space"
+    ]
+  },
+  {
+    "Name": "windows.vss.space Veeam",
+    "Provider": "Veeam",
+    "Body": "Error 0x8004231F",
+    "Expected": [
+      "windows.vss.space"
+    ]
+  },
+  {
+    "Name": "windows.vss.space Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Error 0x8004231F",
+    "Expected": [
+      "windows.vss.space"
+    ]
+  },
+  {
+    "Name": "windows.vss.timeout Veeam",
+    "Provider": "Veeam",
+    "Body": "Error VSS_E_WRITERERROR_TIMEOUT",
+    "Expected": [
+      "windows.vss.timeout"
+    ]
+  },
+  {
+    "Name": "windows.vss.timeout Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Error VSS_E_WRITERERROR_TIMEOUT",
+    "Expected": [
+      "windows.vss.timeout"
+    ]
+  },
+  {
+    "Name": "windows.vss.retry Veeam",
+    "Provider": "Veeam",
+    "Body": "Error VSS_E_WRITERERROR_RETRYABLE",
+    "Expected": [
+      "windows.vss.retry"
+    ]
+  },
+  {
+    "Name": "windows.vss.retry Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Error VSS_E_WRITERERROR_RETRYABLE",
+    "Expected": [
+      "windows.vss.retry"
+    ]
+  },
+  {
+    "Name": "windows.vss.nonretry Veeam",
+    "Provider": "Veeam",
+    "Body": "Error 0x800423F4",
+    "Expected": [
+      "windows.vss.nonretry"
+    ]
+  },
+  {
+    "Name": "windows.vss.nonretry Active Backup for Business",
+    "Provider": "Active Backup for Business",
+    "Body": "Error 0x800423F4",
+    "Expected": [
+      "windows.vss.nonretry"
+    ]
+  },
+  {
+    "Name": "sql.log.no-full SQLBackupAndFTP",
+    "Provider": "SQLBackupAndFTP",
+    "Body": "BACKUP LOG cannot be performed because there is no current database backup",
+    "Expected": [
+      "sql.log.no-full"
+    ]
+  },
+  {
+    "Name": "Numeric boundary",
+    "Provider": "Active Backup for Business",
+    "Body": "Error code: 230",
+    "Expected": []
+  },
+  {
+    "Name": "Hex boundary",
+    "Provider": "Veeam",
+    "Body": "Error 0x8004231f00",
+    "Expected": []
+  },
+  {
+    "Name": "Wrong product",
+    "Provider": "QNAP",
+    "Body": "Error code: 23",
+    "Expected": []
+  },
+  {
+    "Name": "Unknown provider",
+    "Provider": "Неизвестно",
+    "Body": "Error 0x8004231F",
+    "Expected": []
+  },
+  {
+    "Name": "Name is not an error",
+    "Provider": "Active Backup for Business",
+    "Body": "Job name: Error code: 23",
+    "Expected": []
+  },
+  {
+    "Name": "Counts are not error codes",
+    "Provider": "Active Backup for Business",
+    "Body": "Items: 23\nErrors: 1117",
+    "Expected": []
+  },
+  {
+    "Name": "Resolved prefix",
+    "Provider": "Veeam",
+    "Body": "Resolved: configuration backup encryption is disabled",
+    "Expected": []
+  },
+  {
+    "Name": "Quoted email",
+    "Provider": "Veeam",
+    "Body": "> configuration backup encryption is disabled",
+    "Expected": []
+  },
+  {
+    "Name": "Normalization",
+    "Provider": "Veeam",
+    "Body": "WARNING CONFIGURATION   BACKUP ENCRYPTION IS DISABLED",
+    "Expected": [
+      "veeam.config.encryption"
+    ]
+  },
+  {
+    "Name": "Multiple diagnoses",
+    "Provider": "QNAP HBS",
+    "Body": "Warning Folder pairs are invalid or inaccessible\nWarning Not all extended attributes are copied",
+    "Expected": [
+      "hbs.folders",
+      "hbs.attributes"
+    ]
+  },
+  {
+    "Name": "Duplicates collapse",
+    "Provider": "Veeam",
+    "Body": "Warning configuration backup encryption is disabled\nWarning configuration backup encryption is disabled",
+    "Expected": [
+      "veeam.config.encryption"
+    ]
+  },
+  {
+    "Name": "Unknown message",
+    "Provider": "Veeam",
+    "Body": "Warning: vendor specific unknown failure",
+    "Expected": []
+  },
+  {
+    "Name": "ABB alternate VSS code",
+    "Provider": "Active Backup for Business",
+    "Body": "Error 0x80042306",
+    "Expected": [
+      "abb.vss.provider"
+    ]
+  }
+]

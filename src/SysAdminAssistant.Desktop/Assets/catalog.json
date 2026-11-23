@@ -1,0 +1,32 @@
+{
+  "type": "original vector illustrations",
+  "families": [
+    "generic",
+    "hap_ac",
+    "hap_ac2",
+    "hap_ac3",
+    "hap_ax2",
+    "hap_ax3",
+    "hex",
+    "hex_s",
+    "rb",
+    "ccr",
+    "crs",
+    "cap",
+    "wap",
+    "lhg",
+    "sxt",
+    "sxtsq",
+    "netmetal",
+    "cube",
+    "mantbox",
+    "groove",
+    "ltap",
+    "l009",
+    "rb5009",
+    "chr",
+    "board"
+  ],
+  "fallback": "generic",
+  "network_requests": false
+}

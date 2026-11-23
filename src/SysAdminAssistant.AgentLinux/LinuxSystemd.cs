@@ -1,0 +1,35 @@
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using SysAdminAssistant.Core;
+namespace SysAdminAssistant.AgentLinux;
+[System.Runtime.Versioning.SupportedOSPlatform("linux")]
+public static class LinuxSystemd
+{
+    [StructLayout(LayoutKind.Sequential)] private struct Timespec{public long Seconds,Nanoseconds;}
+    [DllImport("libc",EntryPoint="clock_gettime")]private static extern int Clock(int id,out Timespec value);
+    private static bool Name(string n)=>n.Length is >0 and <=200&&(n.EndsWith(".service",StringComparison.Ordinal)||n.EndsWith(".timer",StringComparison.Ordinal)||n.EndsWith(".socket",StringComparison.Ordinal))&&n.All(c=>char.IsAsciiLetterOrDigit(c)||c is '-' or '_' or '.' or '@' or ':');
+    private static string Run(params string[] args){var exe=File.Exists("/usr/bin/systemctl")?"/usr/bin/systemctl":"/bin/systemctl";var pi=new ProcessStartInfo(exe){UseShellExecute=false,RedirectStandardOutput=true,RedirectStandardError=true};pi.Environment["LC_ALL"]="C";foreach(var a in args)pi.ArgumentList.Add(a);using var p=Process.Start(pi)??throw new IOException(global::SysAdminAssistant.Core.ProductText.Get("systemctl не запущен"));var stdout=p.StandardOutput.ReadToEndAsync();var stderr=p.StandardError.ReadToEndAsync();if(!p.WaitForExit(7000)){p.Kill(true);throw new TimeoutException(global::SysAdminAssistant.Core.ProductText.Get("systemctl превысил 7 с"));}var text=stdout.GetAwaiter().GetResult();if(p.ExitCode!=0)throw new IOException(global::SysAdminAssistant.Core.ProductText.Get("systemctl не предоставил состояния systemd"));if(text.Length>2000000)throw new IOException(global::SysAdminAssistant.Core.ProductText.Get("Список systemd превышает предел"));return text;}
+    public static LinuxUnit[] Parse(string text,DateTime now,ulong monotonicUsec,bool dependency=false)
+    {
+        var result=new List<LinuxUnit>();foreach(var block in text.Split("\n\n",StringSplitOptions.RemoveEmptyEntries)){
+            var fields=block.Split('\n',StringSplitOptions.RemoveEmptyEntries).Select(s=>s.Split('=',2)).Where(a=>a.Length==2).GroupBy(a=>a[0]).ToDictionary(g=>g.Key,g=>g.Last()[1]);var name=fields.GetValueOrDefault("Id","");if(!Name(name))continue;
+            string Get(string k)=>fields.GetValueOrDefault(k,"");int Number(string k)=>int.TryParse(Get(k),out var v)?Math.Max(0,v):0;
+            ulong? Microseconds(string raw){if(ulong.TryParse(raw,out var numeric))return numeric;var matches=System.Text.RegularExpressions.Regex.Matches(raw,@"(?<n>\d+(?:\.\d+)?)\s*(?<u>min|ms|us|µs|d|h|s)",System.Text.RegularExpressions.RegexOptions.CultureInvariant,TimeSpan.FromMilliseconds(50));if(matches.Count==0)return null;double sum=0;foreach(System.Text.RegularExpressions.Match m in matches){if(!double.TryParse(m.Groups["n"].Value,System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out var n))return null;sum+=n*(m.Groups["u"].Value switch{"d"=>86400000000d,"h"=>3600000000d,"min"=>60000000d,"s"=>1000000d,"ms"=>1000d,_=>1d});}return sum>0&&sum<ulong.MaxValue?(ulong)sum:null;}
+            DateTime? Time(string key){var parsed=Microseconds(Get(key));if(parsed is not ulong value||value==0||value>monotonicUsec&&key!="NextElapseUSecMonotonic")return null;var delta=((double)value-monotonicUsec)/1000000;if(Math.Abs(delta)>315576000)return null;return now.AddSeconds(delta);}
+            DateTime? Calendar(){var raw=Get("NextElapseUSecRealtime");if(ulong.TryParse(raw,out var us)&&us>0&&us<253402300799000000)return DateTimeOffset.FromUnixTimeMilliseconds((long)us/1000).UtcDateTime;var utc=raw.EndsWith(" UTC",StringComparison.Ordinal);var index=raw.LastIndexOf(' ');if(index<=0)return null;var date=raw[..index];if(!DateTime.TryParseExact(date,"ddd yyyy-MM-dd HH:mm:ss",System.Globalization.CultureInfo.InvariantCulture,System.Globalization.DateTimeStyles.None,out var at))return null;try{return utc?DateTime.SpecifyKind(at,DateTimeKind.Utc):TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(at,DateTimeKind.Unspecified));}catch(ArgumentException){return null;}}
+            var trigger=string.Join(" ",Get(name.EndsWith(".service",StringComparison.Ordinal)?"TriggeredBy":"Triggers").Split(' ',StringSplitOptions.RemoveEmptyEntries).Where(Name).Where(n=>name.EndsWith(".service",StringComparison.Ordinal)?n.EndsWith(".socket",StringComparison.Ordinal):n.EndsWith(".service",StringComparison.Ordinal)).Take(8));if(trigger.Length>256)trigger="";
+            result.Add(new(name,name.EndsWith(".timer",StringComparison.Ordinal)?"timer":name.EndsWith(".socket",StringComparison.Ordinal)?"socket":Get("Type"),Get("ActiveState"),Get("SubState"),Get("Result"),Number("ExecMainCode"),Number("ExecMainStatus"),name.EndsWith(".timer",StringComparison.Ordinal)?Time("LastTriggerUSecMonotonic"):Time("ExecMainExitTimestampMonotonic"),Time("NextElapseUSecMonotonic")??Calendar(),trigger,dependency,Get("LoadState")=="not-found"?"Unit не установлен":""));
+        }return result.ToArray();
+    }
+    public static (AgentService[],LinuxUnit[]) Read(AgentPolicy policy)
+    {
+        var inventory=new List<AgentService>();var text=Run("list-units","--all","--type=service,timer,socket","--no-legend","--no-pager","--plain");
+        foreach(var line in text.Split('\n',StringSplitOptions.RemoveEmptyEntries)){var a=line.Trim().TrimStart('●').Trim().Split(' ',5,StringSplitOptions.RemoveEmptyEntries);if(a.Length<4||!Name(a[0]))continue;var status=a[2] switch{"active"=>"Running","activating"=>"StartPending","deactivating"=>"StopPending","inactive" or "failed"=>"Stopped",_=>"Unknown"};inventory.Add(new(a[0],a.Length>4?a[4]:a[0],status));if(inventory.Count>=1024)break;}
+        var names=LinuxPolicy.EffectiveServices(policy).Where(s=>s.Enabled).Select(s=>s.Name).Where(Name).Distinct(StringComparer.Ordinal).Take(64).ToArray();if(names.Length==0)return(inventory.ToArray(),[]);
+        string Query(string[] units)=>Run(new[]{"show","--property=Id,Type,ActiveState,SubState,LoadState,Result,ExecMainCode,ExecMainStatus,ExecMainExitTimestampMonotonic,LastTriggerUSecMonotonic,NextElapseUSecMonotonic,NextElapseUSecRealtime,Triggers,TriggeredBy","--no-pager","--"}.Concat(units).ToArray());
+        ulong Mono(){if(Clock(1,out var t)!=0)throw new IOException(global::SysAdminAssistant.Core.ProductText.Get("Не прочитаны монотонные часы"));return checked((ulong)t.Seconds*1000000+(ulong)t.Nanoseconds/1000);}
+        var units=Parse(Query(names),DateTime.UtcNow,Mono()).ToList();var dependencies=units.Where(u=>u.Type=="timer"||u.Name.EndsWith(".service",StringComparison.Ordinal)).SelectMany(u=>u.Trigger.Split(' ',StringSplitOptions.RemoveEmptyEntries)).Where(n=>Name(n)&&!names.Contains(n)).Distinct().Take(64).ToArray();if(dependencies.Length>0)units.AddRange(Parse(Query(dependencies),DateTime.UtcNow,Mono(),true));
+        foreach(var unit in units.Where(u=>!u.Dependency)){inventory.RemoveAll(s=>s.Name==unit.Name);inventory.Add(new(unit.Name,unit.Name,unit.Active=="active"?"Running":unit.Active=="activating"?"StartPending":"Stopped"));}
+        return(inventory.Take(1024).ToArray(),units.Take(128).ToArray());
+    }
+}

@@ -1,0 +1,31 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="SysAdmin Assistant Workstation Agent" Manufacturer="321.su"
+           Version="$(var.StationVersion)" UpgradeCode="{CA2D822A-C915-4374-A05F-39AADE147BD4}" Scope="perMachine">
+    <MajorUpgrade DowngradeErrorMessage="A newer version is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <Property Id="ARPSYSTEMCOMPONENT" Value="1" />
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="StationFolder" Name="SysAdmin Assistant Workstation">
+        <Component Id="StationService" Guid="{4E003C2F-ADAD-4BC3-8EB2-9022C03029F0}">
+          <File Id="StationExe" Source="$(var.AgentExe)" KeyPath="yes" />
+          <File Id="StationUninstallExe" Source="$(var.UninstallExe)" Name="Uninstall.exe" />
+          <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SysAdminAssistantWorkstation" Name="DisplayName" Value="SysAdmin Assistant Workstation Agent" Type="string" />
+          <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SysAdminAssistantWorkstation" Name="DisplayVersion" Value="[ProductVersion]" Type="string" />
+          <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SysAdminAssistantWorkstation" Name="Publisher" Value="321.su" Type="string" />
+          <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SysAdminAssistantWorkstation" Name="UninstallString" Value="&quot;[StationFolder]Uninstall.exe&quot; --component workstation" Type="string" />
+          <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SysAdminAssistantWorkstation" Name="DisplayIcon" Value="[StationFolder]Uninstall.exe,0" Type="string" />
+          <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SysAdminAssistantWorkstation" Name="NoModify" Value="1" Type="integer" />
+          <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SysAdminAssistantWorkstation" Name="NoRepair" Value="1" Type="integer" />
+          <RegistryValue Id="StationUrl" Root="HKLM" Key="SOFTWARE\SysAdminAssistant\WorkstationPackage" Name="ServerUrl" Value="UNCONFIGURED" Type="string" />
+          <RegistryValue Id="StationPin" Root="HKLM" Key="SOFTWARE\SysAdminAssistant\WorkstationPackage" Name="ServerSha256" Value="UNCONFIGURED" Type="string" />
+          <RegistryValue Id="StationAuthority" Root="HKLM" Key="SOFTWARE\SysAdminAssistant\WorkstationPackage" Name="Authority" Value="UNCONFIGURED" Type="string" />
+          <RegistryValue Id="StationEnrollment" Root="HKLM" Key="SOFTWARE\SysAdminAssistant\WorkstationPackage" Name="Enrollment" Value="UNCONFIGURED" Type="string" />
+          <ServiceInstall Id="InstallStation" Name="SysAdminAssistantWorkstation" DisplayName="SysAdmin Assistant Workstation"
+            Type="ownProcess" Start="auto" ErrorControl="normal" Account="LocalSystem" Arguments="--workstation" />
+          <ServiceControl Id="ControlStation" Name="SysAdminAssistantWorkstation" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+    <Feature Id="Main" Title="SysAdmin Assistant Workstation Agent"><ComponentRef Id="StationService" /></Feature>
+  </Package>
+</Wix>

@@ -1,0 +1,9 @@
+{
+  "release": "0.42.11",
+  "status": "not_run",
+  "reason": "NuGet API timed out; offline restore does not constitute a fresh dependency audit.",
+  "runtime_release": "10.0.14",
+  "runtime_metadata": "https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.14/release.json",
+  "dependency_audit_command": "dotnet list SysAdminAssistant.sln package --vulnerable --include-transitive",
+  "native_ocr_audit": "not_completed"
+}

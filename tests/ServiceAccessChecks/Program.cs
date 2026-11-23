@@ -1,0 +1,10 @@
+using System.Text.Json;
+using SysAdminAssistant.Core;
+using SysAdminAssistant.Infrastructure;
+using SysAdminAssistant.Server;
+var root=Path.Combine(Path.GetTempPath(),"saa-service-acl-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
+try{
+ SettingsFile.Save(new AppSettings{SqlitePath=Path.Combine(root,"fixture.db")},Path.Combine(root,"settings.json"));
+ var bob=new UserDirectory.Account{Id="bob-fixture",Login="bob",Enabled=true,Administrator=false,Revision=1,Permissions=new(){["vault"]=1,["services"]=1}};var alice=new UserDirectory.Account{Id="alice-fixture",Login="alice",Enabled=true,Administrator=false,Revision=1,Permissions=new(){["vault"]=2}};File.WriteAllText(Path.Combine(root,"users.json"),JsonSerializer.Serialize(new[]{alice,bob,new UserDirectory.Account{Id="admin-fixture",Login="admin",Administrator=true,Enabled=true,Revision=1}}));var users=new UserDirectory(root);var state=new ServerState(root);await state.Factory.InitializeAsync();int id;await using(var db=state.Factory.Create()){var service=new ServiceEntry{Name="service",Type="TCP",Address="127.0.0.1:1"};db.Add(service);await db.SaveChangesAsync();var entry=new CredentialEntry{Name="Alice secret fixture",OwnerId=alice.Id,ServiceId=service.Id,Ciphertext="deliberately invalid; must never be decrypted"};db.Add(entry);await db.SaveChangesAsync();id=entry.Id;}
+ if(users.Current(bob.Id,bob.Revision)==null)throw new Exception("invalid fixture actor");Console.WriteLine("PASS: service ACL fixture uses current enabled reader account");var vault=new OrganizationVault(state,users);if((await vault.List(bob.View(),default)).Length!=0)throw new Exception("foreign metadata leaked through service relation");Console.WriteLine("PASS: service relation cannot expose another owner metadata");try{await vault.Read(bob.View(),new(id,1),default);throw new Exception("foreign secret read allowed");}catch(UnauthorizedAccessException e)when(e.Message.Contains("другого пользователя")){Console.WriteLine("PASS: current service reader denied foreign secret before cryptographic processing");}
+}finally{Microsoft.Data.Sqlite.SqliteConnection.ClearAllPools();Directory.Delete(root,true);}

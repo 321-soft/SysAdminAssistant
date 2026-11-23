@@ -1,0 +1,22 @@
+{
+  "version": "10.0.14",
+  "source": "https://builds.dotnet.microsoft.com/dotnet/release-metadata/10.0/releases.json",
+  "packages": [
+    {
+      "file": "windowsdesktop-runtime-10.0.14-win-x64.exe",
+      "sha512": "337dacab1636219147b3fe75e451bf5b1c17bca2c86328266d40c4ad1ff0a1e8391c4746ca7a5b702b65b61e8bfe834566cfc1b548cc10aef90b441357b10b69",
+      "urls": [
+        "https://dotnetcli.blob.core.windows.net/dotnet/WindowsDesktop/10.0.14/windowsdesktop-runtime-10.0.14-win-x64.exe",
+        "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.14/windowsdesktop-runtime-10.0.14-win-x64.exe"
+      ]
+    },
+    {
+      "file": "aspnetcore-runtime-10.0.14-win-x64.exe",
+      "sha512": "90045a7969d70453ac973ec3858105118e974f415c7cbd1a3cd7800b7442b291ea9f5b388a4ab79ab0d118e9fd330c9548a7e028d6d0e84daddec670a16bbb53",
+      "urls": [
+        "https://dotnetcli.blob.core.windows.net/dotnet/aspnetcore/Runtime/10.0.14/aspnetcore-runtime-10.0.14-win-x64.exe",
+        "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/10.0.14/aspnetcore-runtime-10.0.14-win-x64.exe"
+      ]
+    }
+  ]
+}

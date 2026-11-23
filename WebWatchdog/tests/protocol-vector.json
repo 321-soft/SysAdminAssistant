@@ -1,0 +1,11 @@
+{
+  "secret": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "packet": {
+    "version": 1,
+    "serverId": "assistant-server",
+    "timestamp": 1700000000,
+    "nonce": "00000000000000000000000000000000",
+    "signature": "08da38b51dd171c449f319e119f33a3283f12dac5067717cab72280ee3ab9a05"
+  },
+  "ack": "2e826a2b799c5c7a559f7510d9d21ebdcc2206386e375d343b260be6dfb79349"
+}
