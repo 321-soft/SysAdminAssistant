@@ -8,7 +8,7 @@ using System.Security.Principal;
 using System.ComponentModel;
 using Microsoft.Win32;
 using SysAdminAssistant.Core;
-[assembly:System.Reflection.AssemblyVersion("0.46.14.0")]
+[assembly:System.Reflection.AssemblyVersion("0.46.15.0")]
 internal static class AgentLauncher
 {
  static bool english;

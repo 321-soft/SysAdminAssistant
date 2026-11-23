@@ -74,7 +74,7 @@ SysAdmin Assistant собирает технические письма из IMA
 5. При необходимости создайте MSI рабочих станций, разверните его и подтвердите новые компьютеры.
 6. Настройте Telegram и проверьте обработку на тестовом письме и тестовом устройстве.
 
-В версии 0.46.14 дополнены выбор RU/EN в графических установщиках и деинсталляторе, переключение языка клиента и окна управления сервером без перезапуска. Исходные письма, журналы и пользовательские названия сохраняются без перевода. Удаление по умолчанию сохраняет данные.
+В версии 0.46.15 дополнены выбор RU/EN в графических установщиках и деинсталляторе, переключение языка клиента и окна управления сервером без перезапуска. Исходные письма, журналы и пользовательские названия сохраняются без перевода. Удаление по умолчанию сохраняет данные.
 
 [Руководство на русском](docs/USER_GUIDE_RU.md) · [Рабочие станции и MSI](docs/WORKSTATIONS.md) · [Настройка KSC](docs/KSC-DICTIONARY.md)
 
@@ -178,7 +178,7 @@ Ready-to-install packages are published under this repository's **Releases**. Au
 5. Deploy workstation agents if needed and approve new endpoints.
 6. Configure Telegram and verify the setup with test devices and reports.
 
-Version 0.46.14 includes RU/EN selection to graphical setup and removal tools, and live language switching in the desktop client and server management window. Original emails, logs and user-defined names remain unchanged. Uninstalling keeps data by default.
+Version 0.46.15 includes RU/EN selection to graphical setup and removal tools, and live language switching in the desktop client and server management window. Original emails, logs and user-defined names remain unchanged. Uninstalling keeps data by default.
 
 [User guide](docs/USER_GUIDE_EN.md) · [Workstation deployment](docs/WORKSTATIONS.md) · [KSC configuration](docs/KSC-DICTIONARY.md)
 

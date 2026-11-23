@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <Version>0.46.14</Version>
+    <Version>0.46.15</Version>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -11,7 +11,7 @@
     <Company>321.su</Company>
     <Description>Email report analysis, infrastructure monitoring and IT asset management</Description>
     <Copyright>© 2026 Орлов Александр Юрьевич · 321.su</Copyright>
-    <AssemblyVersion>0.46.14.0</AssemblyVersion>
-    <FileVersion>0.46.14.0</FileVersion>
+    <AssemblyVersion>0.46.15.0</AssemblyVersion>
+    <FileVersion>0.46.15.0</FileVersion>
   </PropertyGroup>
 </Project>

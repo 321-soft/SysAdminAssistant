@@ -2,7 +2,7 @@
 
 ## Русский
 
-Выпуск 0.46.14: сервер и клиент устанавливаются через соответствующий Setup.exe. Язык выбирается до запуска мастера. Агент устройств использует графическую оболочку пакета. В разделе «Рабочие станции» сохранение установщика создаёт общий MSI и соседний `.Setup.exe`; для ручной установки достаточно одного `.Setup.exe`: MSI включён внутрь. Для GPO и KSC используется MSI без оболочки.
+Выпуск 0.46.15: сервер и клиент устанавливаются через соответствующий Setup.exe. Язык выбирается до запуска мастера. Агент устройств использует графическую оболочку пакета. В разделе «Рабочие станции» сохранение установщика создаёт общий MSI и соседний `.Setup.exe`; для ручной установки достаточно одного `.Setup.exe`: MSI включён внутрь. Для GPO и KSC используется MSI без оболочки.
 
 Графические утилиты клиента, сервера и агента устройств используют уже установленный для этих компонентов .NET Desktop Runtime. Установщик и деинсталлятор рабочих станций поставляются автономно с runtime внутри и не требуют его отдельной установки. MSI для GPO/KSC по-прежнему содержит автономную службу.
 
@@ -20,7 +20,7 @@ Server, client and device-agent removal tools use their existing Desktop Runtime
 
 Windows Installed Apps exposes removal for installed components. The server also exposes it in Start and its management window. Data is retained by default. Database and managed-account removal require explicit selections and confirmation. Validation refuses system SQL databases, filesystem links and known shared databases. Removing an agent does not revoke its server registration.
 
-Windows UI execution, clean-install/upgrade/removal and GPO deployment must be verified on Windows before distributing a release. See verification/RELEASE_0.46.14.md.
+Windows UI execution, clean-install/upgrade/removal and GPO deployment must be verified on Windows before distributing a release. See verification/RELEASE_0.46.15.md.
 
 
 Каждый установщик копирует Uninstall.exe в папку установленной программы. Отдельный соседний деинсталлятор при переносе Setup.exe не требуется. PUBLISH проверяет это до удаления временных сборочных каталогов.

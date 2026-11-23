@@ -42,10 +42,20 @@ internal static class Program
             var sorted=new TestGrid{ItemsSource=items,AutoGenerateColumns=false,SelectionMode=DataGridSelectionMode.Extended};
             var uptime=new DataGridTextColumn{Header="Аптайм",Binding=new System.Windows.Data.Binding("Uptime"),SortMemberPath="Uptime"};sorted.Columns.Add(uptime);
             sorted.SelectedItem=items[1];sorted.Sort(uptime);
-            Check("Header sorting uses durations and preserves selected row identity",ReferenceEquals(sorted.Items[0],items[1])&&ReferenceEquals(sorted.SelectedItem,items[1]));
-            sorted.Sort(uptime);Check("Header sorting supports descending duration order",ReferenceEquals(sorted.Items[0],items[0])&&uptime.SortDirection==System.ComponentModel.ListSortDirection.Descending);
+            Check("Header sorting uses durations and preserves selected row identity",sorted.Items.Cast<SortRow>().SequenceEqual(new[]{items[1],items[2],items[0]})&&ReferenceEquals(sorted.SelectedItem,items[1])&&uptime.SortDirection==System.ComponentModel.ListSortDirection.Ascending);
+            sorted.Sort(uptime);Check("Header sorting supports descending duration order",sorted.Items.Cast<SortRow>().SequenceEqual(new[]{items[0],items[2],items[1]})&&uptime.SortDirection==System.ComponentModel.ListSortDirection.Descending);
+            Check("Custom duration ordering is not overwritten by WPF default sorting",System.Windows.Data.CollectionViewSource.GetDefaultView(sorted.ItemsSource) is System.Windows.Data.ListCollectionView {CustomSort:not null}&&sorted.Items.SortDescriptions.Count==0);
+            for(var click=0;click<8;click++){
+                sorted.Sort(uptime);
+                var expected=click%2==0?new[]{items[1],items[2],items[0]}:new[]{items[0],items[2],items[1]};
+                Check("Repeated header click preserves complete numeric ordering "+click,sorted.Items.Cast<SortRow>().SequenceEqual(expected));
+            }
+            // Loaded installation is idempotent; it must not toggle twice per click.
+            sorted.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent,sorted));
+            sorted.Sort(uptime);Check("Loaded does not install a duplicate sort handler",sorted.Items.Cast<SortRow>().SequenceEqual(new[]{items[1],items[2],items[0]}));
+            sorted.Sort(uptime);
             var saved=TableSorting.Capture(sorted);sorted.ItemsSource=items.Reverse().ToArray();TableSorting.Apply(sorted,saved);
-            Check("Refresh restores the custom ordering",ReferenceEquals(sorted.Items[0],items[0]));
+            Check("Refresh restores the custom ordering",sorted.Items.Cast<SortRow>().SequenceEqual(new[]{items[0],items[2],items[1]}));
             // No TableSorting.Install here: the production control must own sorting before Loaded.
             var readings=new[]{new RawSortRow("9 д. 12 ч. 17 мин.",9*86400+12*3600+17*60,"0.46.9.0"),new RawSortRow("8 д. 09 ч. 10 мин.",8*86400+9*3600+10*60,"0.46.13.0"),new RawSortRow("70 д. 02 ч. 50 мин.",70*86400+2*3600+50*60,"0.46.2.0"),new RawSortRow("7 д. 03 ч. 42 мин.",7*86400+3*3600+42*60,"0.46.14.0")};
             var actual=new TestGrid{ItemsSource=readings,AutoGenerateColumns=false};
@@ -55,7 +65,7 @@ internal static class Program
             actual.Sort(rawTime);Check("Production control sorts raw uptime without a Loaded event",actual.Items.Cast<RawSortRow>().Select(r=>r.UptimeSort).SequenceEqual(readings.Select(r=>r.UptimeSort).Order()));
             actual.Sort(rawTime);Check("Production control reverses raw uptime",actual.Items.Cast<RawSortRow>().Select(r=>r.UptimeSort).SequenceEqual(readings.Select(r=>r.UptimeSort).OrderDescending()));
             actual.Sort(rawAgent);Check("Production control sorts actual agent versions",actual.Items.Cast<RawSortRow>().Select(r=>r.Agent).SequenceEqual(new[]{"0.46.2.0","0.46.9.0","0.46.13.0","0.46.14.0"}));
-            actual.Sort(rawAgent);Check("Production control reverses agent versions",actual.Items.Cast<RawSortRow>().First().Agent=="0.46.14.0");
+            actual.Sort(rawAgent);Check("Production control reverses agent versions",actual.Items.Cast<RawSortRow>().Select(r=>r.Agent).SequenceEqual(new[]{"0.46.14.0","0.46.13.0","0.46.9.0","0.46.2.0"}));
             var selectedAction=new Button{Content="Создать объект инвентаризации",IsEnabled=true};
             var bar=SelectionActionBar.Create(sorted,[new Button{Content="Создать установщик MSI"}],[selectedAction]);
             var layout=new DockPanel();DockPanel.SetDock(bar,Dock.Top);layout.Children.Add(bar);layout.Children.Add(sorted);window.Content=layout;window.Height=600;

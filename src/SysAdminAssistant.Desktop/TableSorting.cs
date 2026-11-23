@@ -12,7 +12,7 @@ internal static class TableSorting
     private static readonly DependencyProperty SortsProperty=DependencyProperty.RegisterAttached("Sorts",typeof(SortDescription[]),typeof(TableSorting));
     private static readonly DependencyProperty InstalledProperty=DependencyProperty.RegisterAttached("Installed",typeof(bool),typeof(TableSorting),new PropertyMetadata(false));
     public static void Initialize(){if(initialized)return;initialized=true;EventManager.RegisterClassHandler(typeof(DataGrid),FrameworkElement.LoadedEvent,new RoutedEventHandler((sender,_)=>Install((DataGrid)sender)));}
-    public static void Install(DataGrid table){if(table is TypedDataGrid||(bool)table.GetValue(InstalledProperty))return;table.SetValue(InstalledProperty,true);table.Sorting+=Sorting;}
+    public static void Install(DataGrid table){if((bool)table.GetValue(InstalledProperty))return;table.SetValue(InstalledProperty,true);table.Sorting+=Sorting;}
     public static SortDescription[] Capture(DataGrid table)=>(SortDescription[]?)table.GetValue(SortsProperty)??table.Items.SortDescriptions.ToArray();
     private static string Path(DataGridColumn column)=>column.SortMemberPath.Length>0?column.SortMemberPath:column is DataGridBoundColumn{Binding:Binding binding}?binding.Path?.Path??"":"";
     internal static void Sorting(object sender,DataGridSortingEventArgs e)
@@ -51,10 +51,11 @@ internal static class TableSorting
 // cannot depend on a process-wide Loaded handler running in a particular host.
 internal class TypedDataGrid : DataGrid
 {
-    public TypedDataGrid()=>SetResourceReference(StyleProperty,typeof(DataGrid));
-    protected override void OnSorting(DataGridSortingEventArgs e)
+    public TypedDataGrid()
     {
-        TableSorting.Sorting(this,e);
-        base.OnSorting(e);
+        SetResourceReference(StyleProperty,typeof(DataGrid));
+        // DataGrid.OnSorting resets Handled before raising Sorting. Install the
+        // handler here, inside that event, rather than running it before base.
+        TableSorting.Install(this);
     }
 }

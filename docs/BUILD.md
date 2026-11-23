@@ -4,7 +4,7 @@
 
 1. Используйте Windows x64 и установленный .NET 10 SDK, совместимый с global.json. SDK нужен только на машине сборки. На сервере и клиенте требуются runtime ветки 10.0 x64, минимум 10.0.14; для сервера также ASP.NET Core Runtime.
 2. Распакуйте исходники в локальный каталог и запустите PUBLISH.bat. VERIFY.cmd собирает решение и запускает основные и сетевые спецификации; при ошибке публикация останавливается.
-3. Формат `1` создаёт SysAdminAssistant_Client_Setup.exe и SysAdminAssistant_Server_Setup.exe в publish/Release_0.46.14/Installers; `2` оставляет Client и ServerSetup; `3` сохраняет оба варианта.
+3. Формат `1` создаёт SysAdminAssistant_Client_Setup.exe и SysAdminAssistant_Server_Setup.exe в publish/Release_0.46.15/Installers; `2` оставляет Client и ServerSetup; `3` сохраняет оба варианта.
 4. Для форматов 1 и 3 ответьте «Да» на вопрос «Включить WiX в установщик клиента?», чтобы вложить пакет WiX 4.0.6 из NuGet. Публикация его только скачивает. В Setup.exe появится выключенная по умолчанию галочка «Установить WiX для сборки MSI». Для выбранного компонента нужен .NET 10 SDK x64; для самого клиента достаточно Desktop Runtime.
 5. Полный выпуск собирается за один запуск PUBLISH.bat. Если WiX 4.0.6 отсутствует, публикация подготавливает его в .tools внутри проекта. Системная установка и PATH не меняются. При ошибке подготовки публикация останавливается, не создавая неполный комплект без MSI рабочих станций.
 6. На запрос загрузки .NET выберите Y или N. N не отменяет сборку: уже имеющиеся RuntimePackages используются, отсутствующие runtime устанавливаются на целевой машине отдельно. Пакеты скачиваются с Microsoft и проверяются; SDK в установщик не включается. Чтобы Windows-агенты могли сами обновить .NET, выберите Y или заранее подготовьте проверенный windowsdesktop-runtime в RuntimePackages: PUBLISH включит его в серверный AgentTemplate.
@@ -15,8 +15,8 @@
 Пути будущих выпусков можно задать **до** публикации:
 
 ```bat
-set "SAA_RELEASE_BASE_URL=https://assistant.321.su/releases/0.46.14"
-set "SAA_RELEASE_MIRROR_BASE_URL=https://github.com/OWNER/REPOSITORY/releases/download/v0.46.14"
+set "SAA_RELEASE_BASE_URL=https://assistant.321.su/releases/0.46.15"
+set "SAA_RELEASE_MIRROR_BASE_URL=https://github.com/OWNER/REPOSITORY/releases/download/v0.46.15"
 PUBLISH.bat
 ```
 
